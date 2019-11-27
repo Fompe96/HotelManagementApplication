@@ -2,9 +2,9 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="a717cbd8-53a7-4b76-9c95-f41fa45448f2" name="Default Changelist" comment="">
-      <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Booking.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Booking.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/HotelManagementApplication/HotelLogic.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/HotelManagementApplication/HotelLogic.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/HotelManagementApplication/Room.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/HotelManagementApplication/Room.class" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/HotelApp.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/HotelApp.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/HotelLogic.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/HotelLogic.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/Room.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Room.java" afterDir="false" />

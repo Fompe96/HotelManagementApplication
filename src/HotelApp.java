@@ -2,16 +2,18 @@ import java.time.LocalDate;
 import java.util.Scanner;
 
 public class HotelApp {
-    HotelLogic myApp = new HotelLogic();
     Scanner input = new Scanner(System.in);
 
     public static void main(String[] args) {
 
+        // temporary object with method call used to try "available rooms in time period."
         HotelApp myHotel = new HotelApp();
         myHotel.availableInTimeMenu();
     }
+    // menu for "available rooms in time period"
     private void availableInTimeMenu(){
         HotelApp myHotel = new HotelApp();
+        HotelLogic myApp = new HotelLogic();
 
         try {
             System.out.println("Enter desired date for check in: ");
@@ -38,10 +40,10 @@ public class HotelApp {
                 System.out.println("maximum time to book in the future is 25 years, try again.");
                 myHotel.availableInTimeMenu();
             }else{
-                System.out.println(myApp.availableInTime(in, out));
+               System.out.println(myApp.availableInTime(in, out));
             }
         }catch (Exception e){
-            System.out.println("Something went wrong, try again.");
+           System.out.println("Something went wrong, try again.");
             myHotel.availableInTimeMenu();
         }
 
