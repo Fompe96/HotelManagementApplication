@@ -38,8 +38,8 @@ public class Room {
     public boolean getHasBalcony() {
         return hasBalcony;
     }
-    // temporary method used to try out "available rooms in time period."
 
+    // temporary method used to try out "available rooms in time period."
     public Booking getBooking() {
         return booking;
     }

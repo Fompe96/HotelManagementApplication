@@ -22,7 +22,7 @@ public class HotelLogic {
         for (int i = 0; i <availableRooms.size() ; i++) {
             return availableRooms.get(i).getRoomNumber();
         }
-
+        return 0;
 
     }
 }
