@@ -48,4 +48,23 @@ public class HotelApp {
         }
 
     }
+
+    public void addNewCustomer() {
+        Scanner input = new Scanner(System.in);
+        ArrayList<Customer> customers = new ArrayList<>();
+
+        System.out.println("\n------------------------------");
+        System.out.println("< Enter customer information > \n");
+        System.out.print("Name: ");
+        String customerName = input.nextLine();
+        System.out.print("SSN: ");
+        String customerSSN = input.nextLine();
+        System.out.print("Adress: ");
+        String customerAdress = input.nextLine();
+        System.out.print("Phone number: ");
+        String customerPhoneNumber = input.nextLine();
+        System.out.println("------------------------------\n");
+
+        Customer customerInfo = new Customer(customerName, customerSSN, customerAdress, customerPhoneNumber);
+        customers.add(customerInfo);
 }
