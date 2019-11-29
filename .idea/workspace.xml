@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="a717cbd8-53a7-4b76-9c95-f41fa45448f2" name="Default Changelist" comment="">
-      <change beforePath="$PROJECT_DIR$/src/Booking.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Booking.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Customer.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Customer.java" afterDir="false" />
+    <list default="true" id="4bf045db-c63b-442e-803b-f68f12148cc4" name="Default Changelist" comment="">
+      <change beforePath="$PROJECT_DIR$/.gitignore" beforeDir="false" afterPath="$PROJECT_DIR$/.gitignore" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/HotelManagementApplication/HotelLogic.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/HotelManagementApplication/HotelLogic.class" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/HotelLogic.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/HotelLogic.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Room.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Room.java" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -25,7 +25,6 @@
   </component>
   <component name="ProjectId" id="1TpyjzaPjPjXUVFRZgr3rIRYjcP" />
   <component name="PropertiesComponent">
-    <property name="last_opened_file_path" value="$PROJECT_DIR$/../../../Skrivbord/building-trading-bots-java-master" />
     <property name="last_opened_file_path" value="$PROJECT_DIR$" />
     <property name="run.code.analysis.last.selected.profile" value="pProject Default" />
   </component>
@@ -98,7 +97,7 @@
   </component>
   <component name="TaskManager">
     <task active="true" id="Default" summary="Default task">
-      <changelist id="a717cbd8-53a7-4b76-9c95-f41fa45448f2" name="Default Changelist" comment="" />
+      <changelist id="4bf045db-c63b-442e-803b-f68f12148cc4" name="Default Changelist" comment="" />
       <created>1574171470908</created>
       <option name="number" value="Default" />
       <option name="presentableId" value="Default" />

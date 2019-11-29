@@ -48,6 +48,8 @@ public class HotelLogic {
         // temporary objects used to try integration of make booking with available rooms in time period.
         roomList.add(new Room(1,1,true,570,true));
         roomList.add(new Room(2,2,true,570,false));
+        roomList.add(new Room(3,1,true,570,false));
+        roomList.add(new Room(4,2,true,570,false));
         customerList.add(new Customer("Anders", "1", "1","1"));
         boolean successfully = false;
         System.out.println("Please enter SSN for customer to book: YYYYMMDD-XXXX");
