@@ -6,12 +6,13 @@ public class HotelApp {
 
     public static void main(String[] args) {
 
-        // temporary object with method call used to try "available rooms in time period."
-        HotelApp myHotel = new HotelApp();
-        myHotel.availableInTimeMenu();
+      HotelLogic myApp = new HotelLogic();
+      myApp.makeBooking();
     }
+
     // menu for "available rooms in time period"
-    private void availableInTimeMenu(){
+    private void availableInTimeMenu() {
+        // temporary used to try mak booking integrated with available in time period.
         HotelApp myHotel = new HotelApp();
         HotelLogic myApp = new HotelLogic();
 
@@ -33,17 +34,17 @@ public class HotelApp {
             System.out.print("dd: ");
             dd = input.nextInt();
             LocalDate out = LocalDate.of(yyyy, mm, dd);
-            if (in.compareTo(LocalDate.now()) < 0){
+            if (in.compareTo(LocalDate.now()) < 0) {
                 System.out.println("It is not possible to check in too a date in history, try again.");
                 myHotel.availableInTimeMenu();
-            }else if (out.compareTo(LocalDate.now().plusYears(25)) > 0){
+            } else if (out.compareTo(LocalDate.now().plusYears(25)) > 0) {
                 System.out.println("maximum time to book in the future is 25 years, try again.");
                 myHotel.availableInTimeMenu();
-            }else{
-               System.out.println(myApp.availableInTime(in, out));
+            } else {
+    //            System.out.println(myApp.availableInTime(in, out));
             }
-        }catch (Exception e){
-           System.out.println("Something went wrong, try again.");
+        } catch (Exception e) {
+            System.out.println("Something went wrong, try again.");
             myHotel.availableInTimeMenu();
         }
 
@@ -51,7 +52,7 @@ public class HotelApp {
 
     public void addNewCustomer() {
         Scanner input = new Scanner(System.in);
-        ArrayList<Customer> customers = new ArrayList<>();
+        //  ArrayList<Customer> customers = new ArrayList<>();
 
         System.out.println("\n------------------------------");
         System.out.println("< Enter customer information > \n");
@@ -66,5 +67,6 @@ public class HotelApp {
         System.out.println("------------------------------\n");
 
         Customer customerInfo = new Customer(customerName, customerSSN, customerAdress, customerPhoneNumber);
-        customers.add(customerInfo);
+        //    customers.add(customerInfo);
+    }
 }

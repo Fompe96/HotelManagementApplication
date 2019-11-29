@@ -1,12 +1,14 @@
 import java.text.SimpleDateFormat;
-import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.Scanner;
 
 public class HotelLogic {
+    // lists contains all objects of corresponding type.
     private ArrayList<Customer> customerList = new ArrayList<>();
     private ArrayList<Room> roomList = new ArrayList<>();
+    private ArrayList<Booking> bookingsList = new ArrayList<>();
+
     private Scanner input = new Scanner(System.in);
 
 
@@ -21,28 +23,29 @@ public class HotelLogic {
     }
 
     // logic for "available rooms in time period."
-    public int availableInTime(LocalDate in, LocalDate out) {
-        ArrayList<Room> listOfRooms = new ArrayList<>();
-        listOfRooms.add(new Room(1, 2, true, 500, true));
+    public ArrayList<Room> availableInTime(Date in, Date out) {
         ArrayList<Room> availableRooms = new ArrayList<>();
-        for (Room listOfRoom : listOfRooms) {
-            if (!listOfRoom.getBooked()) {
-                availableRooms.add(listOfRoom);
-                // temporary dates will get exchanged for actual dates of bookings
-            } else if (listOfRoom.getBooking().inCheck(LocalDate.of(2020, 11, 25)).compareTo(out) > 0 || listOfRoom.getBooking().outCheck(LocalDate.of(2020, 11, 30)).compareTo(in) < 0) {
-                availableRooms.add(listOfRoom);
+        // checks if booking to a room exist and adds it if not.
+        for (Room room : roomList) {
+            if (!room.getBooked()) {
+                availableRooms.add(room);
             }
-
+            // checks if booking of room intersects desiered booking dates and adds it if not.
+            for (int i = 0; i < bookingsList.size(); i++) {
+                if (bookingsList.get(i).getCheckInDate().compareTo(out) > 0 || bookingsList.get(i).getCheckOutDate().compareTo(in) < 0) {
+                    availableRooms.addAll(bookingsList.get(i).getBookedRooms());
+                }
+            }
         }
-
-        for (int i = 0; i <availableRooms.size() ; i++) {
-            return availableRooms.get(i).getRoomNumber();
-        }
-        return 0;
-
+        // returns added rooms.
+        return availableRooms;
     }
 
     public boolean makeBooking() { // String ssn, Date checkInDate, Date checkOutDate, ArrayList<Room> bookedRooms
+        // temporary objects used to try integration of make booking with available rooms in time period.
+        roomList.add(new Room(1,1,true,570,true));
+        roomList.add(new Room(2,2,true,570,false));
+        customerList.add(new Customer("Anders", "1", "1","1"));
         boolean successfully = false;
         System.out.println("Please enter SSN for customer to book: YYYYMMDD-XXXX");
         String ssn = input.nextLine();
@@ -76,7 +79,7 @@ public class HotelLogic {
                 }
                 if (successfully) {
                     ArrayList<Room> roomsToBook = new ArrayList<>();
-                    ArrayList<Room> availableRooms = availableInTime();// Calls availableInTime to retrieve arraylist with available rooms.
+                    ArrayList<Room> availableRooms = availableInTime(checkInDate, checkOutDate);// Calls availableInTime to retrieve arraylist with available rooms.
                     for (Room room : availableRooms) {
                         System.out.println(room);
                     }

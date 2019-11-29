@@ -3,14 +3,14 @@
   <component name="ChangeListManager">
     <list default="true" id="a717cbd8-53a7-4b76-9c95-f41fa45448f2" name="Default Changelist" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-<<<<<<< HEAD
-=======
+      <change beforePath="$PROJECT_DIR$/out/production/HotelManagementApplication/Booking.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/HotelManagementApplication/Booking.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/HotelManagementApplication/Customer.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/HotelManagementApplication/Customer.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/HotelManagementApplication/HotelApp.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/HotelManagementApplication/HotelApp.class" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/out/production/HotelManagementApplication/HotelLogic.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/HotelManagementApplication/HotelLogic.class" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/out/production/HotelManagementApplication/Room.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/HotelManagementApplication/Room.class" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/HotelApp.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/HotelApp.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/HotelLogic.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/HotelLogic.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/Room.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Room.java" afterDir="false" />
->>>>>>> 91a7b96217876b80d402cb62064e17fde722c3bf
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -30,13 +30,9 @@
   </component>
   <component name="ProjectId" id="1TpyjzaPjPjXUVFRZgr3rIRYjcP" />
   <component name="PropertiesComponent">
-<<<<<<< HEAD
-    <property name="last_opened_file_path" value="$PROJECT_DIR$" />
-=======
     <property name="last_opened_file_path" value="$PROJECT_DIR$/../../../Skrivbord/building-trading-bots-java-master" />
     <property name="last_opened_file_path" value="$PROJECT_DIR$" />
     <property name="run.code.analysis.last.selected.profile" value="pProject Default" />
->>>>>>> 91a7b96217876b80d402cb62064e17fde722c3bf
   </component>
   <component name="RunDashboard">
     <option name="ruleStates">
@@ -120,13 +116,9 @@
       <map>
         <entry key="MAIN">
           <value>
-<<<<<<< HEAD
-            <State />
-=======
             <State>
               <option name="COLUMN_ORDER" />
             </State>
->>>>>>> 91a7b96217876b80d402cb62064e17fde722c3bf
           </value>
         </entry>
       </map>
