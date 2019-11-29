@@ -38,7 +38,14 @@ public class Room {
         return hasBalcony;
     }
 
-
+    @Override
+    public String toString() {
+        return "Room numer: " + getRoomNumber() + "\n" +
+                "Number of beds: " + getNumberOfBeds() + "\n" +
+                "Has balcony: " + getHasBalcony() + "\n" +
+                "Price per night: " + getPricePerNight() + "\n" +
+                "----------------------------------";
+    }
 }
 
 

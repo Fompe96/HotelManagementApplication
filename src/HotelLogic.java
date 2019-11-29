@@ -83,6 +83,7 @@ public class HotelLogic {
                 if (successfully) {
                     ArrayList<Room> roomsToBook = new ArrayList<>();
                     ArrayList<Room> availableRooms = availableInTime(checkInDate, checkOutDate);// Calls availableInTime to retrieve arraylist with available rooms.
+                    System.out.println("Available rooms in period:");
                     for (Room room : availableRooms) {
                         System.out.println(room);
                     }
@@ -135,14 +136,14 @@ public class HotelLogic {
                             }
 
                             Booking booking = new Booking(checkInDate, checkOutDate, roomsToBook);
-                            bookingList.add(booking);
+                            bookingsList.add(booking);
                             for (Customer customer : customerList) {
                                 if (customer.getCustomerSSN().equals(ssn)) {
                                     customer.getBookings().add(booking);
+                                    System.out.println(customer.getBookings().get(0));
                                     break;
                                 }
                             }
-                            System.out.println(booking);
                         }
                     }
                 }
