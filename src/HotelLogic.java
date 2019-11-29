@@ -9,6 +9,7 @@ public class HotelLogic {
     private ArrayList<Room> roomList = new ArrayList<>();
     private ArrayList<Booking> bookingsList = new ArrayList<>();
 
+
     private Scanner input = new Scanner(System.in);
 
 
@@ -25,6 +26,7 @@ public class HotelLogic {
     // logic for "available rooms in time period."
     public ArrayList<Room> availableInTime(Date in, Date out) {
         ArrayList<Room> availableRooms = new ArrayList<>();
+
         // checks if booking to a room exist and adds it if not.
         for (Room room : roomList) {
             if (!room.getBooked()) {
@@ -36,6 +38,7 @@ public class HotelLogic {
                     availableRooms.addAll(bookingsList.get(i).getBookedRooms());
                 }
             }
+
         }
         // returns added rooms.
         return availableRooms;
@@ -132,6 +135,13 @@ public class HotelLogic {
                             }
 
                             Booking booking = new Booking(checkInDate, checkOutDate, roomsToBook);
+                            bookingList.add(booking);
+                            for (Customer customer : customerList) {
+                                if (customer.getCustomerSSN().equals(ssn)) {
+                                    customer.getBookings().add(booking);
+                                    break;
+                                }
+                            }
                             System.out.println(booking);
                         }
                     }

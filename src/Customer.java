@@ -3,14 +3,14 @@ import java.util.ArrayList;
 public class Customer {
     private String customerName;
     private String customerSSN;
-    private String customerAdress;
+    private String customerAddress;
     private String customerPhoneNumber;
     private ArrayList<Booking> bookingList = new ArrayList<>();
 
     public Customer(String customerName, String customerSSN, String customerAdress, String customerPhoneNumber) {
         this.customerName = customerName;
         this.customerSSN = customerSSN;
-        this.customerAdress = customerAdress;
+        this.customerAddress = customerAdress;
         this.customerPhoneNumber = customerPhoneNumber;
     }
 
@@ -35,11 +35,11 @@ public class Customer {
     }
 
     public String getCustomerAdress() {
-        return customerAdress;
+        return customerAddress;
     }
 
     public void setCustomerAdress(String customerAdress) {
-        this.customerAdress = customerAdress;
+        this.customerAddress = customerAdress;
     }
 
     public String getCustomerPhoneNumber() {

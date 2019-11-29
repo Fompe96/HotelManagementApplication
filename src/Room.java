@@ -1,4 +1,3 @@
-import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.Date;
 
@@ -39,14 +38,7 @@ public class Room {
         return hasBalcony;
     }
 
-    // temporary method used to try out "available rooms in time period."
-    public Booking getBooking() {
-        // Temporary objects in order to return a booking object.
-        Date date1 = new Date();
-        Date date2 = new Date();
-        ArrayList<Room> testList = new ArrayList<>();
-        return new Booking(date1, date2, testList);
-    }
+
 }
 
 

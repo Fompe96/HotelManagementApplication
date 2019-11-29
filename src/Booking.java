@@ -8,6 +8,7 @@ public class Booking {
     private Date checkInDate;
     private Date checkOutDate;
     private double totalPrice;
+    private String Ssn;
     private ArrayList<Room> bookedRooms;
 
     public Booking (Date checkInDate, Date checkOutDate, ArrayList<Room> bookedRooms) {
