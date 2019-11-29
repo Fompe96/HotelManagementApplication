@@ -1,8 +1,11 @@
+import java.util.ArrayList;
+
 public class Customer {
     private String customerName;
     private String customerSSN;
     private String customerAdress;
     private String customerPhoneNumber;
+    private ArrayList<Booking> bookingList = new ArrayList<>();
 
     public Customer(String customerName, String customerSSN, String customerAdress, String customerPhoneNumber) {
         this.customerName = customerName;
@@ -13,6 +16,10 @@ public class Customer {
 
     public String getCustomerName() {
         return customerName;
+    }
+
+    public ArrayList<Booking> getBookings() {
+        return bookingList;
     }
 
     public void setCustomerName(String customerName) {
