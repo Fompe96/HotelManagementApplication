@@ -7,6 +7,7 @@ import java.util.Scanner;
 public class HotelLogic {
     private ArrayList<Customer> customerList = new ArrayList<>();
     private ArrayList<Room> roomList = new ArrayList<>();
+    private ArrayList<Booking> bookingList = new ArrayList<>();
     private Scanner input = new Scanner(System.in);
 
 
@@ -29,9 +30,9 @@ public class HotelLogic {
             if (!listOfRoom.getBooked()) {
                 availableRooms.add(listOfRoom);
                 // temporary dates will get exchanged for actual dates of bookings
-            } else if (listOfRoom.getBooking().inCheck(LocalDate.of(2020, 11, 25)).compareTo(out) > 0 || listOfRoom.getBooking().outCheck(LocalDate.of(2020, 11, 30)).compareTo(in) < 0) {
+            } /*else if (listOfRoom.getBooking().inCheck(LocalDate.of(2020, 11, 25)).compareTo(out) > 0 || listOfRoom.getBooking().outCheck(LocalDate.of(2020, 11, 30)).compareTo(in) < 0) {
                 availableRooms.add(listOfRoom);
-            }
+            }*/
 
         }
 
@@ -129,6 +130,13 @@ public class HotelLogic {
                             }
 
                             Booking booking = new Booking(checkInDate, checkOutDate, roomsToBook);
+                            bookingList.add(booking);
+                            for (Customer customer : customerList) {
+                                if (customer.getCustomerSSN().equals(ssn)) {
+                                    customer.getBookings().add(booking);
+                                    break;
+                                }
+                            }
                             System.out.println(booking);
                         }
                     }
