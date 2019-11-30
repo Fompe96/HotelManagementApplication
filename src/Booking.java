@@ -8,13 +8,14 @@ public class Booking {
     private Date checkInDate;
     private Date checkOutDate;
     private double totalPrice;
-    private String Ssn;
+    private String ssn;
     private ArrayList<Room> bookedRooms;
 
-    public Booking (Date checkInDate, Date checkOutDate, ArrayList<Room> bookedRooms) {
+    public Booking (Date checkInDate, Date checkOutDate, String ssn, ArrayList<Room> bookedRooms) {
         this.bookingId = ++incrementer;
         this.checkInDate = checkInDate;
         this.checkOutDate = checkOutDate;
+        this.ssn = ssn;
         this.bookedRooms = bookedRooms;
         this.totalPrice = findTotalPrice(checkInDate, checkOutDate, bookedRooms);
     }

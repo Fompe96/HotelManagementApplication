@@ -137,7 +137,7 @@ public class HotelLogic {
                                 roomsToBook.add(getRoom(roomNumberArray[i]));
                             }
 
-                            Booking booking = new Booking(checkInDate, checkOutDate, roomsToBook);
+                            Booking booking = new Booking(checkInDate, checkOutDate, ssn, roomsToBook);
                             bookingsList.add(booking);
                             for (Customer customer : customerList) {
                                 if (customer.getCustomerSSN().equals(ssn)) {
