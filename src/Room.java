@@ -11,12 +11,14 @@ public class Room {
     private double pricePerNight;
     private boolean isBooked;
 
-    public Room(int roomNumber, int numberOfBeds, boolean hasBalcony, double pricePerNight, boolean isBooked) {
+
+    public Room(int roomNumber, int numberOfBeds, boolean hasBalcony, double pricePerNight) {
         this.roomNumber = roomNumber;
         this.numberOfBeds = numberOfBeds;
         this.hasBalcony = hasBalcony;
         this.pricePerNight = pricePerNight;
-        this.isBooked = isBooked;
+        this.isBooked = false;
+
     }
 
     public double getPricePerNight() {

@@ -4,7 +4,7 @@ import java.util.ArrayList;
 
 public class HotelApp {
     Scanner input = new Scanner(System.in);
-
+    HotelLogic logicOfProgram = new HotelLogic();
 
     public static void main(String[] args) {
 
@@ -95,10 +95,10 @@ public class HotelApp {
             System.out.println("9.Exit program");
 
             userChoice = input.nextInt();
-            
+
             switch (userChoice) {
                 case 1:
-                    //Add Room method
+                    logicOfProgram.addRoom();
                     break;
                 case 2:
                     //Add NewCustomer method
