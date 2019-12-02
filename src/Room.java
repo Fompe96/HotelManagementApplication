@@ -1,6 +1,3 @@
-import java.util.ArrayList;
-import java.util.Date;
-
 public class Room {
 
 
@@ -10,12 +7,14 @@ public class Room {
     private double pricePerNight;
     private boolean isBooked;
 
-    public Room(int roomNumber, int numberOfBeds, boolean hasBalcony, double pricePerNight, boolean isBooked) {
+
+    public Room(int roomNumber, int numberOfBeds, boolean hasBalcony, double pricePerNight) {
         this.roomNumber = roomNumber;
         this.numberOfBeds = numberOfBeds;
         this.hasBalcony = hasBalcony;
         this.pricePerNight = pricePerNight;
-        this.isBooked = isBooked;
+        this.isBooked = false;
+
     }
 
     public double getPricePerNight() {
@@ -36,6 +35,19 @@ public class Room {
 
     public boolean getHasBalcony() {
         return hasBalcony;
+    }
+
+    public void setBooked(boolean booked) {
+        isBooked = booked;
+    }
+
+    @ Override
+    public String toString (){
+
+        return String.format("%s%d%n%s%.2fkr%n%s%d%n%s%n%n","Room number: ",getRoomNumber(),
+                "Price per night: ", getPricePerNight(),
+                "Number of beds: ", getNumberOfBeds(),
+                (getHasBalcony()? "Has balcony" : "No balcony"));
     }
 
 

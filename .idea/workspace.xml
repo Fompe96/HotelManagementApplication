@@ -2,8 +2,15 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="a717cbd8-53a7-4b76-9c95-f41fa45448f2" name="Default Changelist" comment="">
+      <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/HotelManagementApplication/Booking.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/HotelManagementApplication/Booking.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/HotelManagementApplication/Customer.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/HotelManagementApplication/Customer.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/HotelManagementApplication/HotelApp.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/HotelManagementApplication/HotelApp.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/HotelManagementApplication/HotelLogic.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/HotelManagementApplication/HotelLogic.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/HotelManagementApplication/Room.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/HotelManagementApplication/Room.class" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/Booking.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Booking.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Customer.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Customer.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/HotelApp.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/HotelApp.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/HotelLogic.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/HotelLogic.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/Room.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Room.java" afterDir="false" />
     </list>
@@ -12,6 +19,12 @@
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
     <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="CoverageViewManager">
+    <option name="myElementSize" value="334" />
+  </component>
+  <component name="FavoritesManager">
+    <favorites_list name="HotelManagementApplication" />
   </component>
   <component name="FileTemplateManagerImpl">
     <option name="RECENT_TEMPLATES">
@@ -24,9 +37,16 @@
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
   </component>
   <component name="ProjectId" id="1TpyjzaPjPjXUVFRZgr3rIRYjcP" />
+  <component name="ProjectViewState">
+    <option name="hideEmptyMiddlePackages" value="true" />
+    <option name="showExcludedFiles" value="true" />
+    <option name="showLibraryContents" value="true" />
+  </component>
   <component name="PropertiesComponent">
-    <property name="last_opened_file_path" value="$PROJECT_DIR$/../../../Skrivbord/building-trading-bots-java-master" />
     <property name="last_opened_file_path" value="$PROJECT_DIR$" />
+    <property name="project.structure.last.edited" value="Project" />
+    <property name="project.structure.proportion" value="0.15" />
+    <property name="project.structure.side.proportion" value="0.2" />
     <property name="run.code.analysis.last.selected.profile" value="pProject Default" />
   </component>
   <component name="RunDashboard">
@@ -111,12 +131,47 @@
       <map>
         <entry key="MAIN">
           <value>
-            <State>
-              <option name="COLUMN_ORDER" />
-            </State>
+            <State />
           </value>
         </entry>
       </map>
     </option>
+  </component>
+  <component name="WindowStateProjectService">
+    <state x="552" y="177" key="#Project_Structure" timestamp="1575227472831">
+      <screen x="0" y="0" width="1920" height="1040" />
+    </state>
+    <state x="552" y="177" key="#Project_Structure/0.0.1920.1040@0.0.1920.1040" timestamp="1575227472831" />
+    <state x="811" y="407" key="#com.intellij.ide.util.projectWizard.JdkChooserPanel.MyDialog" timestamp="1574980253381">
+      <screen x="0" y="0" width="1920" height="1040" />
+    </state>
+    <state x="811" y="407" key="#com.intellij.ide.util.projectWizard.JdkChooserPanel.MyDialog/0.0.1920.1040@0.0.1920.1040" timestamp="1574980253381" />
+    <state x="740" y="260" key="FileChooserDialogImpl" timestamp="1575227311034">
+      <screen x="0" y="0" width="1920" height="1040" />
+    </state>
+    <state x="740" y="260" key="FileChooserDialogImpl/0.0.1920.1040@0.0.1920.1040" timestamp="1575227311034" />
+    <state width="1876" height="277" key="GridCell.Tab.0.bottom" timestamp="1575235706179">
+      <screen x="0" y="0" width="1920" height="1040" />
+    </state>
+    <state width="1876" height="277" key="GridCell.Tab.0.bottom/0.0.1920.1040@0.0.1920.1040" timestamp="1575235706179" />
+    <state width="1876" height="277" key="GridCell.Tab.0.center" timestamp="1575235706178">
+      <screen x="0" y="0" width="1920" height="1040" />
+    </state>
+    <state width="1876" height="277" key="GridCell.Tab.0.center/0.0.1920.1040@0.0.1920.1040" timestamp="1575235706178" />
+    <state width="1876" height="277" key="GridCell.Tab.0.left" timestamp="1575235706178">
+      <screen x="0" y="0" width="1920" height="1040" />
+    </state>
+    <state width="1876" height="277" key="GridCell.Tab.0.left/0.0.1920.1040@0.0.1920.1040" timestamp="1575235706178" />
+    <state width="1876" height="277" key="GridCell.Tab.0.right" timestamp="1575235706179">
+      <screen x="0" y="0" width="1920" height="1040" />
+    </state>
+    <state width="1876" height="277" key="GridCell.Tab.0.right/0.0.1920.1040@0.0.1920.1040" timestamp="1575235706179" />
+    <state x="440" y="93" key="SettingsEditor" timestamp="1575227947939">
+      <screen x="0" y="0" width="1920" height="1040" />
+    </state>
+    <state x="440" y="93" key="SettingsEditor/0.0.1920.1040@0.0.1920.1040" timestamp="1575227947939" />
+  </component>
+  <component name="com.intellij.coverage.CoverageDataManagerImpl">
+    <SUITE FILE_PATH="coverage/HotelManagementApplication$HotelApp.ic" NAME="HotelApp Coverage Results" MODIFIED="1575235706092" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="idea" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" />
   </component>
 </project>

@@ -1,17 +1,17 @@
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.Date;
 import java.util.Scanner;
 
 public class HotelLogic {
+
     // lists contains all objects of corresponding type.
     private ArrayList<Customer> customerList = new ArrayList<>();
     private ArrayList<Room> roomList = new ArrayList<>();
     private ArrayList<Booking> bookingsList = new ArrayList<>();
 
-
     private Scanner input = new Scanner(System.in);
-
 
     public Room getRoom(int roomNbr) {  // Demo version
         Room roomToReturn = null;
@@ -25,6 +25,7 @@ public class HotelLogic {
 
     // logic for "available rooms in time period."
     public ArrayList<Room> availableInTime(Date in, Date out) {
+
         ArrayList<Room> availableRooms = new ArrayList<>();
 
         // checks if booking to a room exist and adds it if not.
@@ -32,7 +33,7 @@ public class HotelLogic {
             if (!room.getBooked()) {
                 availableRooms.add(room);
             }
-            // checks if booking of room intersects desiered booking dates and adds it if not.
+            // checks if booking of room intersects desired booking dates and adds it if not.
             for (int i = 0; i < bookingsList.size(); i++) {
                 if (bookingsList.get(i).getCheckInDate().compareTo(out) > 0 || bookingsList.get(i).getCheckOutDate().compareTo(in) < 0) {
                     availableRooms.addAll(bookingsList.get(i).getBookedRooms());
@@ -43,15 +44,51 @@ public class HotelLogic {
         // returns added rooms.
         return availableRooms;
     }
+    // menu for "available rooms in time period"
+    public void availableInTimeMenu() {
+
+
+
+        Calendar cal = Calendar.getInstance();
+        Date currentDate = cal.getTime();
+        cal.add(Calendar.YEAR, 25);
+        Date in25Years = cal.getTime();
+        Date in;
+        Date out;
+
+        do {
+            System.out.println("Enter desired date for check in (yyyy-mm-dd): ");
+            in = promptForDate();
+        } while (in == null );
+
+        do {
+            System.out.println("Enter desired date for check out (yyyy-mm-dd): ");
+             out = promptForDate();
+        } while (out == null );
+        // checks if check in date i in the past
+        if (in.compareTo(currentDate) < 0) {
+            System.out.println("It is not possible to check in too a date in history, try again.");
+            availableInTimeMenu();
+            //checks if sheck in date is more than 25 years in the future.
+        } else if (out.compareTo(in25Years) > 0) {
+            System.out.println("maximum time to book in the future is 25 years, try again.");
+            availableInTimeMenu();
+            // passes two dates to availableInTime
+        } else {
+            for (int i = 0; i <availableInTime(in, out).size() ; i++) {
+                System.out.println(availableInTime(in, out).get(i).toString());
+            }
+
+        }
+    }
+
 
     public boolean makeBooking() { // String ssn, Date checkInDate, Date checkOutDate, ArrayList<Room> bookedRooms
-        // temporary objects used to try integration of make booking with available rooms in time period.
-        roomList.add(new Room(1,1,true,570,true));
-        roomList.add(new Room(2,2,true,570,false));
+
         customerList.add(new Customer("Anders", "1", "1","1"));
         boolean successfully = false;
         System.out.println("Please enter SSN for customer to book: YYYYMMDD-XXXX");
-        String ssn = input.nextLine();
+        String ssn = input.next();
         for (Customer customer : customerList) {
             if (customer.getCustomerSSN().equals(ssn)) {
                 successfully = true;
@@ -132,10 +169,12 @@ public class HotelLogic {
                             System.out.println("All data is okay!");
                             for (int i = 0; i < roomNumberArray.length; i++) {
                                 roomsToBook.add(getRoom(roomNumberArray[i]));
+                                // added this line in order to set is booked to true /Anders
+                                getRoom(roomNumberArray[i]).setBooked(true);
                             }
 
                             Booking booking = new Booking(checkInDate, checkOutDate, roomsToBook);
-                            bookingList.add(booking);
+                            bookingsList.add(booking);
                             for (Customer customer : customerList) {
                                 if (customer.getCustomerSSN().equals(ssn)) {
                                     customer.getBookings().add(booking);
@@ -166,7 +205,7 @@ public class HotelLogic {
     }
 
     private Date promptForDate() {  // Method used by makeBooking to prompt user to enter a date in the form of a string and call stringToDate
-        String stringDate = input.nextLine();
+        String stringDate = input.next();
         return stringToDate(stringDate);
     }
 
@@ -179,6 +218,61 @@ public class HotelLogic {
         }
         input.nextLine();
         return integer;
+    }
+
+    public void addRoom(){
+        System.out.println("Enter Room Number");
+        int roomNumber = input.nextInt();
+
+        System.out.println("Enter the number of beds");
+        int numberOfBeds = input.nextInt();
+
+        System.out.println("Does the room have Balcony? Enter Yes or No.");
+        boolean hasBalcony = false;
+        String answerBalcony;
+
+        do{
+            answerBalcony = input.next();
+            if (answerBalcony.equals("Yes")) {
+                hasBalcony = true;
+                break;
+            } else if (answerBalcony.equals("No")) {
+                hasBalcony = false;
+                break;
+            } else {
+                System.out.println("Invalid input, Enter Yes or No");
+            }
+        }
+        while(!"Yes".equals(answerBalcony) || !"No".equals(answerBalcony));
+
+        System.out.println("Enter the price for renting this room per night");
+        double pricePerNight = input.nextDouble();
+
+
+
+        roomList.add(new Room(roomNumber,numberOfBeds,hasBalcony,pricePerNight));
+        System.out.println(roomList.size());
+
+    }
+    public void addNewCustomer() {
+        Scanner input = new Scanner(System.in);
+        //  ArrayList<Customer> customers = new ArrayList<>();
+
+        System.out.println("\n------------------------------");
+        System.out.println("< Enter customer information > \n");
+        System.out.print("Name: ");
+        String customerName = input.nextLine();
+        System.out.print("SSN: ");
+        String customerSSN = input.nextLine();
+        System.out.print("Adress: ");
+        String customerAdress = input.nextLine();
+        System.out.print("Phone number: ");
+        String customerPhoneNumber = input.nextLine();
+        System.out.println("------------------------------\n");
+
+        Customer customerInfo = new Customer(customerName, customerSSN, customerAdress, customerPhoneNumber);
+
+            customerList.add(customerInfo);
     }
 }
 
