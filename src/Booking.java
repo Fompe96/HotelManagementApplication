@@ -71,7 +71,7 @@ public class Booking {
         return "Booking ID: " + getBookingId() +"\n" +
                 "Check in date: " + getCheckInDate() +"\n" +
                 "Check out date: " + getCheckOutDate() + "\n" +
-                "Total price: " + getTotalPrice();
+                "Total price: " + getTotalPrice() + "kr";
     }
 
      //temporary method used to try out "available rooms in time period."
