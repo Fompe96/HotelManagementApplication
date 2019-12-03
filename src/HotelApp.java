@@ -1,26 +1,17 @@
-
 import java.util.Scanner;
 
 
 public class HotelApp {
-
     HotelLogic myLogic = new HotelLogic();
-
 
     public static void main(String[] args) {
 
-
         HotelApp myHotel = new HotelApp();
         myHotel.showMenu();
-
-
     }
-
 
     public void showMenu() {
         Scanner input = new Scanner(System.in);
-
-
         int userChoice;
 
         do {
@@ -32,7 +23,6 @@ public class HotelApp {
             System.out.println("5.Check in");
             System.out.println("6.Check out");
             System.out.println("9.Exit program");
-
             userChoice = input.nextInt();
             input.nextLine();
 
