@@ -51,6 +51,7 @@ public class HotelApp {
                     myLogic.editRoom();
                     break;
                 case 8:
+                    myLogic.editCustomer();
                     break;
                 case 9:
                     System.out.println("Have a nice day!");

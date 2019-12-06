@@ -261,9 +261,6 @@ public class HotelLogic {
     }
 
     public void addNewCustomer() {
-        Scanner input = new Scanner(System.in);
-        //  ArrayList<Customer> customers = new ArrayList<>();
-
         System.out.println("\n------------------------------");
         System.out.println("< Enter customer information > \n");
         System.out.print("Name: ");
@@ -411,6 +408,90 @@ public class HotelLogic {
     }
 
     public void editCustomer() {
-        // NOT IMPLEMENTED YET
+        if (customerList.size() > 0) {
+            boolean successfully = true;
+            String customerSsn = null;
+            Customer customerToEdit = null;
+            System.out.println("Enter ssn number of customer you wish to edit (YYYYMMDD-XXXX):");
+            try {
+                customerSsn = input.nextLine();
+            } catch (Exception e) {
+                System.out.println("Invalid input.");
+                successfully = false;
+            }
+            if (successfully) {
+                successfully = false;
+                for (Customer customer : customerList) {    // Loop controls that the room with entered room number exists in list.
+                    if (customerSsn.equals(customer.getCustomerSSN())) {
+                        successfully = true;
+                        customerToEdit = customer;
+                        break;
+                    }
+                }
+                if (successfully) {
+                    int choice = editCustomerMenu();
+                    switch (choice) {
+                        case 1: // Edit customer telephone number
+                            String newTelephoneNumber = null;
+                            System.out.println("Current telephone number of customer is " + customerToEdit.getCustomerPhoneNumber());
+                            System.out.println("Enter new telephone number: ");
+                            try {
+                                newTelephoneNumber = input.nextLine();
+                            } catch (Exception e) {
+                                System.out.println("Invalid input.");
+                            }
+                            if (newTelephoneNumber != null && newTelephoneNumber.matches("[0-9]+") && newTelephoneNumber.length() > 8 && newTelephoneNumber.length() < 11) {
+                                System.out.print("Telephone number has successfully been changed from " + customerToEdit.getCustomerPhoneNumber());
+                                customerToEdit.setCustomerPhoneNumber(newTelephoneNumber);
+                                System.out.println(" to " + customerToEdit.getCustomerPhoneNumber());
+                            } else {
+                                System.out.println("Invalid input.");
+                            }
+                            break;
+                        case 2: // Edit customer address
+                            String newAddress = null;
+                            System.out.println("Current address of customer is: " + customerToEdit.getCustomerAdress());
+                            System.out.println("Enter new address: ");
+                            try {
+                                newAddress = input.nextLine();
+                            } catch (Exception e) {
+                                System.out.println("Invalid input.");
+                            }
+                            if (newAddress != null) {
+                                System.out.print("Address has successfully been changed from " + customerToEdit.getCustomerAdress());
+                                customerToEdit.setCustomerAdress(newAddress);
+                                System.out.println(" to " + customerToEdit.getCustomerAdress());
+                            }
+                            break;
+                        case 3:
+                            // Does nothing but lets user get out of menu.
+                            break;
+                        default:
+                            System.out.println("Choice outside menu range.");
+                            break;
+                    }
+                } else {
+                    System.out.println("No customers with entered SSN number could be found.");
+                }
+            }
+        } else {
+            System.out.println("There are no customers to edit.");
+        }
+    }
+
+    private int editCustomerMenu() {
+        int choice = 0;
+        System.out.println("What information about the customer do you wish to edit? \n" +
+                "1. Telephone number \n" +
+                "2. Address \n" +
+                "3. Exit ");
+
+        try {
+            choice = input.nextInt();
+            input.nextLine();
+        } catch (Exception e) {
+            System.out.println("Input has to be a number between 1-3");
+        }
+        return choice;
     }
 }
