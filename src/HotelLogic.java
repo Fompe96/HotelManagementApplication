@@ -280,4 +280,137 @@ public class HotelLogic {
 
         customerList.add(customerInfo);
     }
+    public void editRoom() {
+        if (roomList.size() > 0) {
+            boolean successfully = true;
+            int roomNumber = 0;
+            Room roomToEdit = null;
+            System.out.println("Enter room number of room you wish to edit:");
+            try {
+                roomNumber = input.nextInt();
+                input.nextLine();
+            } catch (Exception e) {
+                System.out.println("Invalid input.");
+                successfully = false;
+            }
+            if (successfully) {
+                successfully = false;
+                for (Room room : roomList) {    // Loop controls that the room with entered room number exists in list.
+                    if (roomNumber == room.getRoomNumber()) {
+                        successfully = true;
+                        roomToEdit = room;
+                        break;
+                    }
+                }
+
+                if (successfully) {
+                    int choice = editRoomMenu();
+                    switch (choice) {
+                        case 1: // Change number of beds
+                            int numberOfBeds = 0; // Since we know that the room exists in list we can initialize to 0, value will be changed later.
+                            System.out.println("Currently the room has " + roomToEdit.getNumberOfBeds() + " beds.");
+                            System.out.println("Input new value: (1-12)");
+                            int newNumberOfBeds = 0;
+                            try {
+                                newNumberOfBeds = input.nextInt();
+                                input.nextLine();
+                            } catch (Exception e) {
+                                System.out.println("New value has to be a number.");
+                                successfully = false;
+                            }
+                            if (newNumberOfBeds < 0 || newNumberOfBeds > 12) {
+                                successfully = false;
+                                System.out.println("Invalid input.");
+                            }
+                            if (successfully) {
+                                System.out.print("The number of beds has successfully been changed from " + roomToEdit.getNumberOfBeds());
+                                roomToEdit.setNumberOfBeds(newNumberOfBeds);
+                                System.out.println(" to " + roomToEdit.getNumberOfBeds() + " beds.");
+                            }
+                            break;
+                        case 2: // Change balcony status
+                            System.out.println("Currently the room has " + (roomToEdit.getHasBalcony() ? "a balcony" : "no balcony"));
+                            System.out.println("Would you like to change the balcony status? \n" +
+                                    "1. Yes \n" +
+                                    "2. No");
+                            int balconyChoice = 0;
+                            try {
+                                balconyChoice = input.nextInt();
+                                input.nextLine();
+                            } catch (Exception e) {
+                                System.out.println("Invalid input.");
+                                successfully = false;
+                            }
+                            if (successfully) {
+                                switch (balconyChoice) {
+                                    case 1:
+                                        roomToEdit.setHasBalcony(!roomToEdit.getHasBalcony());
+                                        break;
+                                    case 2:
+                                        System.out.println("No changes has been made.");
+                                        break;
+                                    default:
+                                        break;
+                                }
+                                System.out.println(roomToEdit);
+                            }
+                            break;
+                        case 3: // Change price per night
+                            System.out.println("Currently the price per night of the room is " + roomToEdit.getPricePerNight() + " kr.");
+                            System.out.println("Input new value:");
+                            double newPrice = 0;
+                            try {
+                                newPrice = input.nextDouble();
+                                input.nextLine();
+                            } catch (Exception e) {
+                                System.out.println("Invalid input.");
+                                successfully = false;
+                            }
+                            if (successfully) {
+                                // The most expensive room might be 3000 per night
+                                successfully = newPrice > 0 && newPrice < 3000;
+                            }
+                            if (successfully) {
+                                System.out.print("Price has successfully been changed from " + roomToEdit.getPricePerNight());
+                                roomToEdit.setPricePerNight(newPrice);
+                                System.out.println(" kr to " + roomToEdit.getPricePerNight() + " kr");
+                            } else {
+                                System.out.println("Invalid input.");
+                            }
+                            break;
+                        case 4:
+                            // Does nothing but lets user get out of menu.
+                            break;
+                        default:
+                            System.out.println("Choice outside menu range.");
+                            break;
+                    }
+                } else {
+                    System.out.println("No room with entered room number could be found.");
+                }
+            }
+        } else {
+            System.out.println("There are no rooms to edit.");
+        }
+    }
+
+    private int editRoomMenu() { // Prints the menu and reads the menu choice input from user trying to edit a room.
+        int choice = 0;
+        System.out.println("What information about the room do you wish to edit? \n" +
+                "1. Number of beds \n" +
+                "2. Balcony status \n" +
+                "3. Price per night \n" +
+                "4. Exit");
+        try {
+            choice = input.nextInt();
+            input.nextLine();
+        } catch (Exception e) {
+            System.out.println("Input has to be a number between 1-4");
+        }
+        return choice;
+    }
+
+    public void editCustomer() {
+        // NOT IMPLEMENTED YET
+    }
 }
