@@ -24,7 +24,8 @@ public class HotelApp {
             System.out.println("6.Check out");
             System.out.println("7.Edit room");
             System.out.println("8.Edit customer");
-            System.out.println("9.Exit program");
+            System.out.println("9.View customer information");
+            System.out.println("10.Exit program");
             userChoice = input.nextInt();
             input.nextLine();
 
@@ -51,9 +52,12 @@ public class HotelApp {
                     myLogic.editRoom();
                     break;
                 case 8:
-                    myLogic.editCustomer();
+                    myLogic.editCustomerInput(); // Call to editCustomerInput ---> editCustomer.
                     break;
                 case 9:
+                    myLogic.viewCustomerInformation();
+                    break;
+                case 10:
                     System.out.println("Have a nice day!");
                     System.exit(0);
                     break;

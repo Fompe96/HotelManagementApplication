@@ -229,9 +229,11 @@ public class HotelLogic {
     public void addRoom() {
         System.out.println("Enter Room Number");
         int roomNumber = input.nextInt();
+        input.nextLine();
 
         System.out.println("Enter the number of beds");
         int numberOfBeds = input.nextInt();
+        input.nextLine();
 
         System.out.println("Does the room have Balcony? Enter Yes or No.");
         boolean hasBalcony = false;
@@ -253,6 +255,7 @@ public class HotelLogic {
 
         System.out.println("Enter the price for renting this room per night");
         double pricePerNight = input.nextDouble();
+        input.nextLine();
 
 
         roomList.add(new Room(roomNumber, numberOfBeds, hasBalcony, pricePerNight));
@@ -261,8 +264,8 @@ public class HotelLogic {
     }
 
     public void addNewCustomer() {
-        System.out.println("\n------------------------------");
-        System.out.println("< Enter customer information > \n");
+        System.out.println("------------------------------");
+        System.out.println("< Enter customer information >");
         System.out.print("Name: ");
         String customerName = input.nextLine();
         System.out.print("SSN (YYYYMMDD-XXXX): ");
@@ -407,12 +410,11 @@ public class HotelLogic {
         return choice;
     }
 
-    public void editCustomer() {
+    public void editCustomerInput() { // Used when editCustomer is called from employee menu to take the SSN as input from the employee.
         if (customerList.size() > 0) {
-            boolean successfully = true;
             String customerSsn = null;
-            Customer customerToEdit = null;
-            System.out.println("Enter ssn number of customer you wish to edit (YYYYMMDD-XXXX):");
+            boolean successfully = true;
+            System.out.println("Enter ssn number of customer you wish to edit (YYYYMMDD-XXXX):");               // This method is ONLY called from the employee menu!!! Call below method (editCustomer) from customerMenu!
             try {
                 customerSsn = input.nextLine();
             } catch (Exception e) {
@@ -420,63 +422,68 @@ public class HotelLogic {
                 successfully = false;
             }
             if (successfully) {
-                successfully = false;
-                for (Customer customer : customerList) {    // Loop controls that the room with entered room number exists in list.
-                    if (customerSsn.equals(customer.getCustomerSSN())) {
-                        successfully = true;
-                        customerToEdit = customer;
-                        break;
+                editCustomer(customerSsn);
+            }
+        }
+    }
+
+    public void editCustomer(String customerSsn) { // Called immediately from customerMenu and from editCustomerInput when the employee has entered a SSN number.
+        boolean successfully = false;
+        Customer customerToEdit = null;
+
+        for (Customer customer : customerList) {    // Loop controls that the customer with entered ssn number exists in list.
+            if (customerSsn.equals(customer.getCustomerSSN())) {
+                successfully = true;
+                customerToEdit = customer;
+                break;
+            }
+        }
+        if (successfully) {
+            int choice = editCustomerMenu();
+            switch (choice) {
+                case 1: // Edit customer telephone number
+                    String newTelephoneNumber = null;
+                    System.out.println("Current telephone number of customer is " + customerToEdit.getCustomerPhoneNumber());
+                    System.out.println("Enter new telephone number: ");
+                    try {
+                        newTelephoneNumber = input.nextLine();
+                    } catch (Exception e) {
+                        System.out.println("Invalid input.");
                     }
-                }
-                if (successfully) {
-                    int choice = editCustomerMenu();
-                    switch (choice) {
-                        case 1: // Edit customer telephone number
-                            String newTelephoneNumber = null;
-                            System.out.println("Current telephone number of customer is " + customerToEdit.getCustomerPhoneNumber());
-                            System.out.println("Enter new telephone number: ");
-                            try {
-                                newTelephoneNumber = input.nextLine();
-                            } catch (Exception e) {
-                                System.out.println("Invalid input.");
-                            }
-                            if (newTelephoneNumber != null && newTelephoneNumber.matches("[0-9]+") && newTelephoneNumber.length() > 8 && newTelephoneNumber.length() < 11) {
-                                System.out.print("Telephone number has successfully been changed from " + customerToEdit.getCustomerPhoneNumber());
-                                customerToEdit.setCustomerPhoneNumber(newTelephoneNumber);
-                                System.out.println(" to " + customerToEdit.getCustomerPhoneNumber());
-                            } else {
-                                System.out.println("Invalid input.");
-                            }
-                            break;
-                        case 2: // Edit customer address
-                            String newAddress = null;
-                            System.out.println("Current address of customer is: " + customerToEdit.getCustomerAdress());
-                            System.out.println("Enter new address: ");
-                            try {
-                                newAddress = input.nextLine();
-                            } catch (Exception e) {
-                                System.out.println("Invalid input.");
-                            }
-                            if (newAddress != null) {
-                                System.out.print("Address has successfully been changed from " + customerToEdit.getCustomerAdress());
-                                customerToEdit.setCustomerAdress(newAddress);
-                                System.out.println(" to " + customerToEdit.getCustomerAdress());
-                            }
-                            break;
-                        case 3:
-                            // Does nothing but lets user get out of menu.
-                            break;
-                        default:
-                            System.out.println("Choice outside menu range.");
-                            break;
+                    if (newTelephoneNumber != null && newTelephoneNumber.matches("[0-9]+") && newTelephoneNumber.length() > 8 && newTelephoneNumber.length() < 11) {
+                        System.out.print("Telephone number has successfully been changed from " + customerToEdit.getCustomerPhoneNumber());
+                        customerToEdit.setCustomerPhoneNumber(newTelephoneNumber);
+                        System.out.println(" to " + customerToEdit.getCustomerPhoneNumber());
+                    } else {
+                        System.out.println("Invalid input.");
                     }
-                } else {
-                    System.out.println("No customers with entered SSN number could be found.");
-                }
+                    break;
+                case 2: // Edit customer address
+                    String newAddress = null;
+                    System.out.println("Current address of customer is: " + customerToEdit.getCustomerAdress());
+                    System.out.println("Enter new address: ");
+                    try {
+                        newAddress = input.nextLine();
+                    } catch (Exception e) {
+                        System.out.println("Invalid input.");
+                    }
+                    if (newAddress != null) {
+                        System.out.print("Address has successfully been changed from " + customerToEdit.getCustomerAdress());
+                        customerToEdit.setCustomerAdress(newAddress);
+                        System.out.println(" to " + customerToEdit.getCustomerAdress());
+                    }
+                    break;
+                case 3:
+                    // Does nothing but lets user get out of menu.
+                    break;
+                default:
+                    System.out.println("Choice outside menu range.");
+                    break;
             }
         } else {
-            System.out.println("There are no customers to edit.");
+            System.out.println("No customers with entered SSN number could be found.");
         }
+
     }
 
     private int editCustomerMenu() {
@@ -493,5 +500,54 @@ public class HotelLogic {
             System.out.println("Input has to be a number between 1-3");
         }
         return choice;
+    }
+
+    public void viewCustomerInformation() {
+        if (customerList.size() > 0) {
+            String customerSsn = null;
+            boolean successfully = true;
+            System.out.println("Enter ssn number of customer you wish to retrieve information about (YYYYMMDD-XXXX):");
+            try {
+                customerSsn = input.nextLine();
+            } catch (Exception e) {
+                System.out.println("Invalid input.");
+                successfully = false;
+            }
+            if (successfully) {
+                successfully = false;
+                Customer customerToPrint = null;
+                for (Customer customer : customerList) {
+                    if (customerSsn.equals(customer.getCustomerSSN())) {
+                        successfully = true;
+                        customerToPrint = customer;
+                        break;
+                    }
+                }
+                if (successfully) {
+                    System.out.println("----- Information about customer with SSN " + customerToPrint.getCustomerSSN());
+                    System.out.println(customerToPrint);
+                    System.out.println("------------ Bookings ------------");
+                    for (int i = 0; i < bookingsList.size(); i++) {
+                        if (bookingsList.get(i).getSsn().equals(customerToPrint.getCustomerSSN())) {
+                            System.out.println(bookingsList.get(i) + "\n" +
+                                    "------------ Rooms ------------");
+                            for (int j = 0; j < bookingsList.get(i).getBookedRooms().size(); j++) {
+                                System.out.println("Room number: " + bookingsList.get(i).getBookedRooms().get(j).getRoomNumber() + "\n" +
+                                        "Price per night: " + bookingsList.get(i).getBookedRooms().get(j).getPricePerNight() + "\n" +
+                                        "Number of beds: " + bookingsList.get(i).getBookedRooms().get(j).getNumberOfBeds() + "\n" +
+                                        "Has balcony: " + bookingsList.get(i).getBookedRooms().get(j).getHasBalcony() + "\n" +
+                                        "------------------------------------------------");
+                            }
+                            System.out.println();
+
+                        }
+                    }
+                } else {
+                    System.out.println("No customer with that ssn could be found.");
+                }
+            }
+        } else {
+            System.out.println("No customers to view.");
+        }
     }
 }

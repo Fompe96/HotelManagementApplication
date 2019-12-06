@@ -46,6 +46,10 @@ public class Booking {
         return totalPrice;
     }
 
+    public String getSsn() {
+        return ssn;
+    }
+
     public ArrayList<Room> getBookedRooms() {
         return bookedRooms;
     }
