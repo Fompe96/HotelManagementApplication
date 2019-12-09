@@ -2,19 +2,10 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="a717cbd8-53a7-4b76-9c95-f41fa45448f2" name="Default Changelist" comment="">
-      <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/out/production/HotelManagementApplication/Booking.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/HotelManagementApplication/Booking.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/HotelManagementApplication/Customer.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/HotelManagementApplication/Customer.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/HotelManagementApplication/HotelApp.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/HotelManagementApplication/HotelApp.class" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/out/production/HotelManagementApplication/HotelLogic.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/HotelManagementApplication/HotelLogic.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/HotelManagementApplication/Room.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/HotelManagementApplication/Room.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Booking.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Booking.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/HotelApp.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/HotelApp.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/HotelLogic.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/HotelLogic.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Room.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Room.java" afterDir="false" />
     </list>
-    <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -48,18 +39,6 @@
     <property name="project.structure.proportion" value="0.15" />
     <property name="project.structure.side.proportion" value="0.2" />
     <property name="run.code.analysis.last.selected.profile" value="pProject Default" />
-  </component>
-  <component name="RunDashboard">
-    <option name="ruleStates">
-      <list>
-        <RuleState>
-          <option name="name" value="ConfigurationTypeDashboardGroupingRule" />
-        </RuleState>
-        <RuleState>
-          <option name="name" value="StatusDashboardGroupingRule" />
-        </RuleState>
-      </list>
-    </option>
   </component>
   <component name="RunManager">
     <configuration default="true" type="Applet">
@@ -113,6 +92,18 @@
       </list>
     </recent_temporary>
   </component>
+  <component name="ServiceViewManager">
+    <option name="viewStates">
+      <list>
+        <serviceView>
+          <treeState>
+            <expand />
+            <select />
+          </treeState>
+        </serviceView>
+      </list>
+    </option>
+  </component>
   <component name="SvnConfiguration">
     <configuration />
   </component>
@@ -131,7 +122,9 @@
       <map>
         <entry key="MAIN">
           <value>
-            <State />
+            <State>
+              <option name="COLUMN_ORDER" />
+            </State>
           </value>
         </entry>
       </map>
@@ -146,6 +139,10 @@
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
     <state x="811" y="407" key="#com.intellij.ide.util.projectWizard.JdkChooserPanel.MyDialog/0.0.1920.1040@0.0.1920.1040" timestamp="1574980253381" />
+    <state x="1330" y="441" key="#com.intellij.openapi.updateSettings.impl.PluginUpdateInfoDialog" timestamp="1575905040558">
+      <screen x="0" y="0" width="2560" height="1400" />
+    </state>
+    <state x="1330" y="441" key="#com.intellij.openapi.updateSettings.impl.PluginUpdateInfoDialog/0.0.2560.1400@0.0.2560.1400" timestamp="1575905040558" />
     <state x="740" y="260" key="FileChooserDialogImpl" timestamp="1575227311034">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
@@ -170,6 +167,10 @@
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
     <state x="440" y="93" key="SettingsEditor/0.0.1920.1040@0.0.1920.1040" timestamp="1575227947939" />
+    <state x="1301" y="629" key="com.intellij.ide.util.TipDialog" timestamp="1575905021907">
+      <screen x="0" y="0" width="2560" height="1400" />
+    </state>
+    <state x="1301" y="629" key="com.intellij.ide.util.TipDialog/0.0.2560.1400@0.0.2560.1400" timestamp="1575905021907" />
   </component>
   <component name="com.intellij.coverage.CoverageDataManagerImpl">
     <SUITE FILE_PATH="coverage/HotelManagementApplication$HotelApp.ic" NAME="HotelApp Coverage Results" MODIFIED="1575235706092" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="idea" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" />
