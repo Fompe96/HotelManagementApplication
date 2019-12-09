@@ -41,6 +41,18 @@ public class Room {
         isBooked = booked;
     }
 
+    public void setNumberOfBeds(int numberOfBeds) {
+        this.numberOfBeds = numberOfBeds;
+    }
+
+    public void setHasBalcony(boolean hasBalcony) {
+        this.hasBalcony = hasBalcony;
+    }
+
+    public void setPricePerNight(double pricePerNight) {
+        this.pricePerNight = pricePerNight;
+    }
+
     @ Override
     public String toString (){
 
@@ -49,8 +61,6 @@ public class Room {
                 "Number of beds: ", getNumberOfBeds(),
                 (getHasBalcony()? "Has balcony" : "No balcony"));
     }
-
-
 }
 
 

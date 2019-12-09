@@ -49,4 +49,11 @@ public class Customer {
     public void setCustomerPhoneNumber(String customerPhoneNumber) {
         this.customerPhoneNumber = customerPhoneNumber;
     }
+
+    @Override
+    public String toString() {
+        return "Name: " + getCustomerName() + "\n" +
+                "Address: " + getCustomerAdress() + "\n" +
+                "Telephone number: " + getCustomerPhoneNumber();
+    }
 }

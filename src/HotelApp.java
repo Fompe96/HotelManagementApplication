@@ -1,26 +1,17 @@
-
 import java.util.Scanner;
 
 
 public class HotelApp {
-
     HotelLogic myLogic = new HotelLogic();
-
 
     public static void main(String[] args) {
 
-
         HotelApp myHotel = new HotelApp();
         myHotel.showMenu();
-
-
     }
-
 
     public void showMenu() {
         Scanner input = new Scanner(System.in);
-
-
         int userChoice;
 
         do {
@@ -31,8 +22,10 @@ public class HotelApp {
             System.out.println("4.View available rooms in period");
             System.out.println("5.Check in");
             System.out.println("6.Check out");
-            System.out.println("9.Exit program");
-
+            System.out.println("7.Edit room");
+            System.out.println("8.Edit customer");
+            System.out.println("9.View customer information");
+            System.out.println("10.Exit program");
             userChoice = input.nextInt();
             input.nextLine();
 
@@ -55,7 +48,16 @@ public class HotelApp {
                 case 6:
                     //Add check out method
                     break;
+                case 7:
+                    myLogic.editRoom();
+                    break;
+                case 8:
+                    myLogic.editCustomerInput(); // Call to editCustomerInput ---> editCustomer.
+                    break;
                 case 9:
+                    myLogic.viewCustomerInformation();
+                    break;
+                case 10:
                     System.out.println("Have a nice day!");
                     System.exit(0);
                     break;
