@@ -555,59 +555,64 @@ public class HotelLogic {
     public void checkIn() {
         int roomNumber = 0;
         int bookingId = 0;
+        Room room = null;
 
         boolean proceed = false;
         boolean endLoop = false;
 
 
         while (true) {
-            System.out.println("Enter the room number that the customer is checking in: ");
-            try {
-                roomNumber = input.nextInt();
-                proceed = true;
-            } catch (Exception e) {
-                System.out.println("Input has to be a number");
-                proceed = false;
-                break;
-            }
 
-            if (proceed) {
-                proceed = false;
-                System.out.println("Enter the bookingId of the booking");
+            do {
+                System.out.println("Enter the room number that the customer is checking in: ");
                 try {
-                    bookingId = input.nextInt();
+                    roomNumber = input.nextInt();
                     proceed = true;
                 } catch (Exception e) {
                     System.out.println("Input has to be a number");
-                    proceed = false;
-                    break;
                 }
+            }while(!proceed);
+
+            if (proceed) {
+                proceed = false;
+                do {
+                    System.out.println("Enter the bookingId of the booking");
+                    try {
+                        bookingId = input.nextInt();
+                        proceed = true;
+                    } catch (Exception e) {
+                        System.out.println("Input has to be a number");
+                    }
+                }while(!proceed);
             }
 
             if (proceed) {
+                proceed = false;
                 for (int i = 0; i < roomList.size(); i++) {
                     if (roomList.get(i).getRoomNumber() == roomNumber) {
+                        room = roomList.get(i);
                         proceed = true;
                     } else {
                         System.out.println("Input has to be a number of an existing room");
-                        break;
                     }
                 }
             }
 
             if (proceed) {
+                proceed = false;
                 for (int j = 0; j < bookingsList.size(); j++) {
                     if (bookingsList.get(j).getBookingId() == bookingId) {
-                        roomList.get(roomNumber).setCheckInOrOut(true);
+                        room.setCheckInOrOut(true);
                         System.out.println("Your customer has checked in");
-                        break;
+
 
                     } else {
                         System.out.println("Input has to a number of an existing booking");
-                        break;
                     }
+                    break;
                 }
             }
+            break;
         }
     }
 

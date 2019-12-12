@@ -56,7 +56,7 @@ public class Room {
         this.pricePerNight = pricePerNight;
     }
 
-    public boolean isCheckInOrOut() {
+    public boolean getCheckInOrOut() {
         return checkInOrOut;
     }
 
