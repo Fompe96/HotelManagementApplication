@@ -8,6 +8,7 @@ public class HotelApp {
 
         HotelApp myHotel = new HotelApp();
         myHotel.showMenu();
+
     }
 
     public void showMenu() {
@@ -43,7 +44,7 @@ public class HotelApp {
                     myLogic.availableInTimeMenu();
                     break;
                 case 5:
-                    //Add Check in method
+                    myLogic.checkIn();
                     break;
                 case 6:
                     //Add check out method
