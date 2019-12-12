@@ -34,12 +34,15 @@ public class HotelLogic {
                 availableRooms.add(room);
             }
             // checks if booking of room intersects desired booking dates and adds it if not.
-            for (int i = 0; i < bookingsList.size(); i++) {
-                if (bookingsList.get(i).getCheckInDate().compareTo(out) > 0 || bookingsList.get(i).getCheckOutDate().compareTo(in) < 0) {
-                    availableRooms.addAll(bookingsList.get(i).getBookedRooms());
+            else {
+                for (int i = 0; i < bookingsList.size(); i++) {
+                    if (bookingsList.get(i).getCheckInDate().compareTo(out) > 0 || bookingsList.get(i).getCheckOutDate().compareTo(in) < 0) {
+                        availableRooms.addAll(bookingsList.get(i).getBookedRooms());
+                    }
                 }
             }
         }
+
         // returns added rooms.
         return availableRooms;
     }
@@ -80,7 +83,6 @@ public class HotelLogic {
 
 
     public boolean makeBooking() { // String ssn, Date checkInDate, Date checkOutDate, ArrayList<Room> bookedRooms
-        customerList.add(new Customer("Anders", "1", "1", "1"));
         boolean successfully = false;
         System.out.println("Please enter SSN for customer to book: YYYYMMDD-XXXX");
         String ssn = input.next();
@@ -277,6 +279,7 @@ public class HotelLogic {
 
         customerList.add(customerInfo);
     }
+
     public void editRoom() {
         if (roomList.size() > 0) {
             boolean successfully = true;
@@ -548,7 +551,8 @@ public class HotelLogic {
         }
     }
 
-    public void checkIn(){
+
+    public void checkIn() {
         int roomNumber = 0;
         int bookingId = 0;
 
@@ -556,7 +560,7 @@ public class HotelLogic {
         boolean endLoop = false;
 
 
-        while (true){
+        while (true) {
             System.out.println("Enter the room number that the customer is checking in: ");
             try {
                 roomNumber = input.nextInt();
@@ -567,8 +571,8 @@ public class HotelLogic {
                 break;
             }
 
-            if(proceed) {
-             proceed = false;
+            if (proceed) {
+                proceed = false;
                 System.out.println("Enter the bookingId of the booking");
                 try {
                     bookingId = input.nextInt();
@@ -591,26 +595,318 @@ public class HotelLogic {
                 }
             }
 
-                if (proceed) {
-                    for(int j = 0; j < bookingsList.size(); j++) {
-                        if (bookingsList.get(j).getBookingId() == bookingId){
-                            roomList.get(roomNumber).setCheckInOrOut(true);
-                            System.out.println("Your customer has checked in");
-                            break;
+            if (proceed) {
+                for (int j = 0; j < bookingsList.size(); j++) {
+                    if (bookingsList.get(j).getBookingId() == bookingId) {
+                        roomList.get(roomNumber).setCheckInOrOut(true);
+                        System.out.println("Your customer has checked in");
+                        break;
 
-                        }
-                        else{
-                            System.out.println("Input has to a number of an existing booking");
-                            break;
-                        }
+                    } else {
+                        System.out.println("Input has to a number of an existing booking");
+                        break;
                     }
                 }
-
-
+            }
         }
-
-
-
     }
 
-}
+// menu that shows the options for editing a booking
+                        private int editBookingMenu () {
+                            int choice = 0;
+                            System.out.println("What information about the customer do you wish to edit? \n" +
+                                    "1. Check in/out \n" +
+                                    "2. Room(s) \n" +
+                                    "3. Exit ");
+
+                            try {
+                                choice = input.nextInt();
+                                input.nextLine();
+                            } catch (Exception e) {
+                                System.out.println("Input has to be a number between 1-3");
+                            }
+                            return choice;
+                        }
+// method with logic for editing a booking.
+                        public void editBooking (String customerSsn){
+                            Calendar cal = Calendar.getInstance();
+                            Date newDate;
+                            ArrayList<Booking> customerBookings = new ArrayList<>();
+// prints all bookings registered on the customer.
+                            for (Booking booking : bookingsList) {
+                                if (booking.getSsn().equals(customerSsn)) {
+                                    System.out.println(booking);
+                                    customerBookings.add(booking);
+                                } else {
+                                    System.out.println("No customer with that ssn could be found.");
+                                    return;
+                                }
+                            }
+// specifies which booking to edit.
+                            int bookingId = 0;
+                            do {
+                                System.out.println("enter booking id for the booking you want to change.");
+                                bookingId = promptForInt();
+                            } while (bookingId == 0);
+
+
+                            int choice = editBookingMenu();
+
+                            for (Booking booking : customerBookings) {
+                                if (booking.getBookingId() == bookingId) {
+
+                                    switch (choice) {
+// Logic for editing check in/out dates.
+                                        case 1:
+
+                                            System.out.print("Enter new check in: (yyyy-mm-dd) ");
+                                            Date newInCheck = promptForDate();
+                                            System.out.print("Enter new check out: (yyyy-mm-dd)");
+                                            Date newOutCheck = promptForDate();
+
+                                            if (booking.getCheckInDate().compareTo(newInCheck) >= 0 && booking.getCheckOutDate().compareTo(newOutCheck) >= 0) {
+                                                ArrayList<Room> rooms = new ArrayList();
+                                                cal.setTime(booking.getCheckInDate());
+                                                cal.add(Calendar.DATE, -1);
+                                                newDate = cal.getTime();
+                                                for (Room availableRoom : availableInTime(newInCheck, newDate)) {
+                                                    for (Room room : booking.getBookedRooms()) {
+
+                                                        if (availableRoom.getRoomNumber() == room.getRoomNumber()) {
+                                                            rooms.add(room);
+                                                        }
+                                                    }
+                                                }
+                                                if (rooms.size() == 0) {
+                                                    System.out.println("sorry there already is a booking for selected room(s) at that date.");
+                                                } else {
+                                                    System.out.println("The desired date is available for the following room(s) of your booking. ");
+                                                    for (Room room : rooms) {
+                                                        System.out.println("Nr: " + room);
+                                                    }
+                                                }
+                                                System.out.println("please confirm to change the check in/out for these room(s). (Yes/No):");
+                                                String string = input.next();
+                                                if (string.equals("Yes")) {
+                                                    for (Room room : booking.getBookedRooms()) {
+                                                        int checker = 0;
+                                                        for (int i = 0; i < rooms.size(); i++) {
+                                                            if (rooms.get(i) != room) {
+                                                                booking.removeBookedRoom(room);
+                                                            }
+                                                        }
+                                                    }
+                                                    booking.setCheckInDate(newInCheck);
+                                                    booking.setCheckOutDate(newOutCheck);
+                                                    booking.findTotalPrice(newInCheck, newOutCheck, booking.getBookedRooms());
+                                                    System.out.println("the booking has been edited successfully");
+                                                    System.out.println("new booking info: ");
+                                                    System.out.println(booking);
+                                                } else if (string.equals("No")) {
+                                                    System.out.println("No changes were made.");
+                                                } else {
+                                                    System.out.println("You must enter either Yes or No.");
+                                                }
+                                            }
+                                            if (booking.getCheckInDate().compareTo(newInCheck) <= 0 && booking.getCheckOutDate().compareTo(newOutCheck) <= 0) {
+                                                ArrayList<Room> rooms = new ArrayList();
+                                                cal.setTime(booking.getCheckOutDate());
+                                                cal.add(Calendar.DATE, 1);
+                                                newDate = cal.getTime();
+                                                for (Room availableRoom : availableInTime(newDate, newOutCheck)) {
+                                                    for (Room room : booking.getBookedRooms()) {
+
+                                                        if (availableRoom.getRoomNumber() == room.getRoomNumber()) {
+                                                            rooms.add(room);
+                                                        }
+                                                    }
+                                                }
+                                                if (rooms.size() == 0) {
+                                                    System.out.println("sorry there already is a booking for selected room(s) at that date.");
+                                                } else {
+                                                    System.out.println("The desired date is available for the following room(s) of your booking. ");
+                                                    for (Room room : rooms) {
+                                                        System.out.println(room);
+                                                    }
+                                                }
+                                                System.out.println("please confirm to change the check in/out for these room(s). (Yes/No):");
+                                                String string = input.next();
+
+                                                if (string.equals("Yes")) {
+                                                    for (Room room : booking.getBookedRooms()) {
+                                                        int checker = 0;
+                                                        for (int i = 0; i < rooms.size(); i++) {
+                                                            if (rooms.get(i) != room) {
+                                                                booking.getBookedRooms().remove(room);
+                                                            }
+                                                        }
+
+                                                    }
+                                                    booking.setCheckInDate(newInCheck);
+                                                    booking.setCheckOutDate(newOutCheck);
+                                                    booking.findTotalPrice(newInCheck, newOutCheck, booking.getBookedRooms());
+                                                    System.out.println("the booking has been edited successfully");
+                                                    System.out.println("new booking info: ");
+                                                    System.out.println(booking);
+                                                } else if (string.equals("No")) {
+                                                    System.out.println("No changes were made.");
+                                                } else {
+                                                    System.out.println("You must enter either Yes or No.");
+                                                }
+
+                                            }
+
+
+                                            break;
+// Logic for adding or removing a room to the booking.
+                                        case 2:
+                                            System.out.print("do you want to add or remove a room in your booking?: (add/remove)");
+                                            String action = input.nextLine();
+                                            if (action.equals("add")) {
+                                                System.out.println("the following rooms are available for the duration of your booking.");
+                                                for (int i = 0; i < availableInTime(booking.getCheckInDate(), booking.getCheckOutDate()).size(); i++) {
+                                                    System.out.println(availableInTime(booking.getCheckInDate(), booking.getCheckOutDate()).get(i).toString());
+                                                }
+                                                System.out.print("which room do you want to add to your booking?: ");
+                                                int roomNr = promptForInt();
+                                                for (int i = 0; i < availableInTime(booking.getCheckInDate(), booking.getCheckOutDate()).size(); i++) {
+                                                    if (availableInTime(booking.getCheckInDate(), booking.getCheckOutDate()).get(i).getRoomNumber() == roomNr) {
+                                                        booking.addBookedRoom(availableInTime(booking.getCheckInDate(), booking.getCheckOutDate()).get(i));
+                                                        booking.findTotalPrice(booking.getCheckInDate(), booking.getCheckOutDate(), booking.getBookedRooms());
+                                                        availableInTime(booking.getCheckInDate(), booking.getCheckOutDate()).get(i).setBooked(true);
+                                                        System.out.println("Room number: " + roomNr + " added.");
+                                                        System.out.println("new booking info: ");
+                                                        System.out.println(booking);
+                                                    }
+                                                }
+                                            } else if (action.equals("remove")) {
+                                                for (Room room : booking.getBookedRooms()) {
+                                                    System.out.println(room);
+                                                }
+                                                System.out.print("which of the rooms do you want to remove from your booking? (enter room number): ");
+                                                int roomNr = promptForInt();
+                                                ArrayList<Room> removeRooms = new ArrayList<>();
+                                                for (Room room : booking.getBookedRooms()) {
+                                                    if (room.getRoomNumber() == roomNr) {
+                                                        removeRooms.add(room);
+                                                    }
+                                                }
+                                                for (Room room : removeRooms) {
+                                                    System.out.println("Room nr: " + room.getRoomNumber() + " removed.");
+                                                    booking.removeBookedRoom(room);
+                                                }
+                                            } else {
+                                                System.out.println("You must type add or remove.");
+                                            }
+                                            break;
+                                        case 3:
+                                            System.out.println("Returning to main menu.");
+                                            break;
+                                        default:
+                                            System.out.println("an invalid number was entered.");
+                                            break;
+                                    }
+
+                                }
+                            }
+                        }
+                        // Used when editCustomer is called from employee menu to take the SSN as input from the employee.
+                        public void editBookingInput () {
+                            if (customerList.size() > 0) {
+                                String customerSsn = null;
+                                boolean successfully = true;
+                                System.out.println("Enter ssn of customer which booking you want to edit (YYYYMMDD-XXXX):");
+                                try {
+                                    customerSsn = input.next();
+                                } catch (Exception e) {
+                                    System.out.println("Invalid input.");
+                                    successfully = false;
+                                }
+                                if (successfully) {
+                                    editBooking(customerSsn);
+                                }
+                            }
+                        }
+// Checks that input is an Integer before returning it.
+                        private int promptForInt () {
+                            int number = 0;
+                            try {
+                                number = Integer.parseInt(input.next());
+                            } catch (Exception e) {
+                                System.out.println("You must enter an integer.");
+                                return 0;
+                            }
+                            return number;
+                        }
+                        // Logic for removing a customer.
+                        public void removeCustomer () {
+                            if (customerList.size() > 0) {
+                                String customerSsn = null;
+                                boolean successfully = true;
+                                System.out.println("Enter ssn of customer which you want to remove (YYYYMMDD-XXXX):");
+                                try {
+                                    customerSsn = input.next();
+                                } catch (Exception e) {
+                                    System.out.println("Invalid input.");
+                                    successfully = false;
+                                }
+                                if (successfully) {
+                                    ArrayList<Customer> removeCustomer = new ArrayList<>();
+                                    ArrayList<Booking> removeBooking = new ArrayList<>();
+                                    for (Customer customer : customerList) {
+                                        if (customer.getCustomerSSN().equals(customerSsn)) {
+                                            removeCustomer.add(customer);
+                                        }
+                                    }
+                                    if (removeCustomer.size() == 0) {
+                                        System.out.println("No customer with that ssn could be found");
+                                    } else {
+                                        ArrayList<Integer> bookedRooms = new ArrayList<>();
+                                        for (Customer customer : removeCustomer) {
+                                            customerList.remove(customer);
+                                            System.out.println("customer with ssn: " + customerSsn + " was successfully removed.");
+                                        }
+                                        for (Booking booking : bookingsList) {
+                                            for (Room room : booking.getBookedRooms()) {
+                                                bookedRooms.add(room.getRoomNumber());
+                                            }
+
+                                            if (booking.getSsn().equals(customerSsn)) {
+                                                removeBooking.add(booking);
+                                            }
+                                        }
+                                        for (Booking booking : removeBooking) {
+
+                                            bookingsList.remove(booking);
+                                            System.out.println("Booking with Id: " + booking.getBookingId() + " has been removed.");
+                                        }
+// Removes bookings associated with the customer.
+                                        int size = bookedRooms.size();
+                                        for (Booking booking : bookingsList) {
+                                            for (Room room : booking.getBookedRooms()) {
+                                                for (int i = 0; i < size; i++) {
+                                                    if (room.getRoomNumber() == bookedRooms.get(i)) {
+                                                        bookedRooms.remove(i);
+                                                    }
+                                                }
+                                            }
+                                        }
+// Sets rooms that no longer have a booking as not booked (show available rooms in time period shows faulty information without this.)
+                                        for (Room room : roomList) {
+                                            for (int i = 0; i < bookedRooms.size(); i++) {
+                                                if (room.getRoomNumber() == bookedRooms.get(i)) {
+                                                    room.setBooked(false);
+                                                }
+
+                                            }
+                                        }
+                                    }
+
+
+                                }
+                            } else {
+                                System.out.println("there is no customers to remove.");
+                            }
+                        }
+
+                    }
