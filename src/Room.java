@@ -1,19 +1,22 @@
 public class Room {
 
+    private static int incrementer = 0; //Inspired by Simon
 
     private int roomNumber;
     private int numberOfBeds;
     private boolean hasBalcony;
     private double pricePerNight;
     private boolean isBooked;
+    private boolean checkInOrOut;    //Whilst true the customer has checked in, false the customer has checked out
 
 
-    public Room(int roomNumber, int numberOfBeds, boolean hasBalcony, double pricePerNight) {
-        this.roomNumber = roomNumber;
+    public Room(int numberOfBeds, boolean hasBalcony, double pricePerNight) {
+        this.roomNumber = ++incrementer;
         this.numberOfBeds = numberOfBeds;
         this.hasBalcony = hasBalcony;
         this.pricePerNight = pricePerNight;
         this.isBooked = false;
+        this.checkInOrOut = false;
 
     }
 
@@ -52,6 +55,16 @@ public class Room {
     public void setPricePerNight(double pricePerNight) {
         this.pricePerNight = pricePerNight;
     }
+
+    public boolean isCheckInOrOut() {
+        return checkInOrOut;
+    }
+
+    public void setCheckInOrOut(boolean checkInOrOut) {
+        this.checkInOrOut = checkInOrOut;
+    }
+
+
 
     @ Override
     public String toString (){
