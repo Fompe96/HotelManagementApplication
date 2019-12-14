@@ -229,37 +229,57 @@ public class HotelLogic {
     }
 
     public void addRoom() {
+        boolean proceed = true;
+        double pricePerNight = 0;
+        int numberOfBeds = 0;
+        boolean hasBalcony = false;
+
 
         System.out.println("Enter the number of beds");
-        int numberOfBeds = input.nextInt();
-        input.nextLine();
 
-        System.out.println("Does the room have Balcony? Enter Yes or No.");
-        boolean hasBalcony = false;
-        String answerBalcony;
+        try {
+            numberOfBeds = input.nextInt();
+        }
+        catch (Exception e){
+            System.out.println("Invalid input enter a number");
+            proceed = false;
+        }
 
-        do {
-            answerBalcony = input.next();
-            if (answerBalcony.equals("Yes")) {
-                hasBalcony = true;
-                break;
-            } else if (answerBalcony.equals("No")) {
-                hasBalcony = false;
-                break;
-            } else {
-                System.out.println("Invalid input, Enter Yes or No");
+        if (proceed) {
+            System.out.println("Does the room have Balcony? Enter Yes or No.");
+
+            String answerBalcony;
+
+            do {
+                answerBalcony = input.next();
+                if (answerBalcony.equals("Yes")) {
+                    hasBalcony = true;
+                    break;
+                } else if (answerBalcony.equals("No")) {
+                    hasBalcony = false;
+                    break;
+                } else {
+                    System.out.println("Invalid input, Enter Yes or No");
+                }
+            }
+            while (!"Yes".equals(answerBalcony) || !"No".equals(answerBalcony));
+        }
+
+        if (proceed) {
+            System.out.println("Enter the price for renting this room per night");
+
+            try {
+                pricePerNight = input.nextDouble();
+            } catch (Exception e) {
+                System.out.println("Invalid option enter a number with two decimals");
+                proceed = false;
             }
         }
-        while (!"Yes".equals(answerBalcony) || !"No".equals(answerBalcony));
 
-        System.out.println("Enter the price for renting this room per night");
-        double pricePerNight = input.nextDouble();
-        input.nextLine();
-
-
-        roomList.add(new Room(numberOfBeds, hasBalcony, pricePerNight));
-        System.out.println(roomList.size());
-
+        if (proceed) {
+            roomList.add(new Room(numberOfBeds, hasBalcony, pricePerNight));
+            System.out.println(roomList.size());
+        }
     }
 
     public void addNewCustomer() {
@@ -558,12 +578,11 @@ public class HotelLogic {
         Room room = null;
 
         boolean proceed = false;
-        boolean endLoop = false;
+
 
 
         while (true) {
 
-            do {
                 System.out.println("Enter the room number that the customer is checking in: ");
                 try {
                     roomNumber = input.nextInt();
@@ -571,7 +590,7 @@ public class HotelLogic {
                 } catch (Exception e) {
                     System.out.println("Input has to be a number");
                 }
-            }while(!proceed);
+
 
             if (proceed) {
                 proceed = false;
@@ -592,10 +611,11 @@ public class HotelLogic {
                     if (roomList.get(i).getRoomNumber() == roomNumber) {
                         room = roomList.get(i);
                         proceed = true;
-                    } else {
-                        System.out.println("Input has to be a number of an existing room");
+                    }
                     }
                 }
+            else {
+                System.out.println("Input has to be a number of an existing room");
             }
 
             if (proceed) {
@@ -603,18 +623,62 @@ public class HotelLogic {
                 for (int j = 0; j < bookingsList.size(); j++) {
                     if (bookingsList.get(j).getBookingId() == bookingId) {
                         room.setCheckInOrOut(true);
-                        System.out.println("Your customer has checked in");
-
-
-                    } else {
-                        System.out.println("Input has to a number of an existing booking");
+                        System.out.println("Your customer has now checked in to room number " + roomNumber + ".");
                     }
-                    break;
                 }
+                    break;
+            }
+            else {
+                System.out.println("Input has to a number of an existing booking");
             }
             break;
         }
     }
+
+    public void checkOut(){
+        int roomNumber = 0;
+        Room room = null;
+
+        boolean proceed = false;
+
+        while (true) {
+                System.out.println("Enter the room number that the customer is checking in: ");
+                try {
+                    roomNumber = input.nextInt();
+                    proceed = true;
+                } catch (Exception e) {
+                    System.out.println("Input has to be a number");
+                }
+
+            if (proceed) {
+                for (int i = 0; i < roomList.size(); i++) {
+                    if (roomList.get(i).getRoomNumber() == roomNumber) {
+                        room = roomList.get(i);
+                        room.setCheckInOrOut(false);
+                        System.out.println("Your customer has now checked out from room number " + i + ".");
+                    }
+                }
+            } else {
+                System.out.println("Input has to be a number of an existing room");
+            }
+            break;
+
+        }
+    }
+
+    public void removeRoom(){
+        System.out.println("Enter the room number of the room you want to remove");
+        int choice = input.nextInt();
+
+        for(int i = 0; i < roomList.size(); i++){
+            if(choice == roomList.get(i).getRoomNumber()){
+                roomList.remove(i);
+                System.out.println("Room number " + choice + " is now removed");
+            }
+        }
+
+    }
+
 
 // menu that shows the options for editing a booking
                         private int editBookingMenu () {
