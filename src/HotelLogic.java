@@ -543,6 +543,23 @@ public class HotelLogic {
         return choice;
     }
 
+    public void viewCustomer() {
+        System.out.println("-----------Customers-----------");
+        if (customerList.size() > 0) {
+            for (Customer customer : customerList) {
+                System.out.println("Name: " + customer.getCustomerName() +
+                        "\nSSN: " + customer.getCustomerSSN() +
+                        "\nAdress: " + customer.getCustomerAdress() +
+                        "\nPhone number: " + customer.getCustomerPhoneNumber() + "\n");
+            }
+            System.out.println("-------------------------------\n");
+        } else {
+            System.out.println("There are no customers to view.");
+            System.out.println("-------------------------------\n");
+        }
+    }
+
+
     public void viewCustomerInformation() {
         if (customerList.size() > 0) {
             String customerSsn = null;
