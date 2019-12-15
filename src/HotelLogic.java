@@ -283,16 +283,37 @@ public class HotelLogic {
     }
 
     public void addNewCustomer() {
+        String customerName;
+        String customerSSN;
+        String customerAdress;
+        String customerPhoneNumber;
+
         System.out.println("------------------------------");
         System.out.println("< Enter customer information >");
-        System.out.print("Name: ");
-        String customerName = input.nextLine();
-        System.out.print("SSN (YYYYMMDD-XXXX): ");
-        String customerSSN = input.nextLine();
+        System.out.print("First and last name: ");
+        customerName = input.nextLine();
+        while (!customerName.matches("[a-öA-Ö ,]+") || customerName.length() < 5) {
+            System.out.print("\nInvalid input, enter first and last name.\nFirst and last name: ");
+            customerName = input.nextLine();
+        }
+        System.out.print("Social security number (YYYYMMDD-XXXX): ");
+        customerSSN = input.nextLine();
+        while (customerSSN.length() < 13 || customerSSN.length() > 13) {
+            System.out.print("\nInvalid format of social security number.\nSSN (YYYYMMDD-XXXX): ");
+            customerSSN = input.nextLine();
+        }
         System.out.print("Adress: ");
-        String customerAdress = input.nextLine();
+        customerAdress = input.nextLine();
+        while (!customerAdress.matches("[a-öA-Ö0-9 ,]+") || customerAdress.length() < 7) {
+            System.out.print("Invalid input.\nAdress: ");
+            customerAdress = input.nextLine();
+        }
         System.out.print("Phone number: ");
-        String customerPhoneNumber = input.nextLine();
+        customerPhoneNumber = input.nextLine();
+        while (!customerPhoneNumber.matches("[0-9- ,]+") || customerPhoneNumber.length() < 10) {
+            System.out.print("Phone number has to be 10 numbers.\nPhone number: ");
+            customerPhoneNumber = input.nextLine();
+        }
         System.out.println("------------------------------\n");
 
         Customer customerInfo = new Customer(customerName, customerSSN, customerAdress, customerPhoneNumber);
