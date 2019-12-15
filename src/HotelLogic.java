@@ -312,6 +312,7 @@ public class HotelLogic {
             } catch (Exception e) {
                 System.out.println("Invalid input.");
                 successfully = false;
+                input.nextLine();
             }
             if (successfully) {
                 successfully = false;
@@ -440,70 +441,75 @@ public class HotelLogic {
             } catch (Exception e) {
                 System.out.println("Invalid input.");
                 successfully = false;
+                input.nextLine();
             }
             if (successfully) {
                 editCustomer(customerSsn);
             }
+        } else {
+            System.out.println("No customers exists to be edited.");
         }
     }
 
     public void editCustomer(String customerSsn) { // Called immediately from customerMenu and from editCustomerInput when the employee has entered a SSN number.
-        boolean successfully = false;
-        Customer customerToEdit = null;
+            boolean successfully = false;
+            Customer customerToEdit = null;
 
-        for (Customer customer : customerList) {    // Loop controls that the customer with entered ssn number exists in list.
-            if (customerSsn.equals(customer.getCustomerSSN())) {
-                successfully = true;
-                customerToEdit = customer;
-                break;
+            for (Customer customer : customerList) {    // Loop controls that the customer with entered ssn number exists in list.
+                if (customerSsn.equals(customer.getCustomerSSN())) {
+                    successfully = true;
+                    customerToEdit = customer;
+                    break;
+                }
             }
-        }
-        if (successfully) {
-            int choice = editCustomerMenu();
-            switch (choice) {
-                case 1: // Edit customer telephone number
-                    String newTelephoneNumber = null;
-                    System.out.println("Current telephone number of customer is " + customerToEdit.getCustomerPhoneNumber());
-                    System.out.println("Enter new telephone number: ");
-                    try {
-                        newTelephoneNumber = input.nextLine();
-                    } catch (Exception e) {
-                        System.out.println("Invalid input.");
-                    }
-                    if (newTelephoneNumber != null && newTelephoneNumber.matches("[0-9]+") && newTelephoneNumber.length() > 8 && newTelephoneNumber.length() < 11) {
-                        System.out.print("Telephone number has successfully been changed from " + customerToEdit.getCustomerPhoneNumber());
-                        customerToEdit.setCustomerPhoneNumber(newTelephoneNumber);
-                        System.out.println(" to " + customerToEdit.getCustomerPhoneNumber());
-                    } else {
-                        System.out.println("Invalid input.");
-                    }
-                    break;
-                case 2: // Edit customer address
-                    String newAddress = null;
-                    System.out.println("Current address of customer is: " + customerToEdit.getCustomerAdress());
-                    System.out.println("Enter new address: ");
-                    try {
-                        newAddress = input.nextLine();
-                    } catch (Exception e) {
-                        System.out.println("Invalid input.");
-                    }
-                    if (newAddress != null) {
-                        System.out.print("Address has successfully been changed from " + customerToEdit.getCustomerAdress());
-                        customerToEdit.setCustomerAdress(newAddress);
-                        System.out.println(" to " + customerToEdit.getCustomerAdress());
-                    }
-                    break;
-                case 3:
-                    // Does nothing but lets user get out of menu.
-                    break;
-                default:
-                    System.out.println("Choice outside menu range.");
-                    break;
+            if (successfully) {
+                int choice = editCustomerMenu();
+                switch (choice) {
+                    case 1: // Edit customer telephone number
+                        String newTelephoneNumber = null;
+                        System.out.println("Current telephone number of customer is " + customerToEdit.getCustomerPhoneNumber());
+                        System.out.println("Enter new telephone number: (9-10 numbers)");
+                        try {
+                            newTelephoneNumber = input.nextLine();
+                        } catch (Exception e) {
+                            System.out.println("Invalid input.");
+                        }
+                        if (newTelephoneNumber != null && newTelephoneNumber.matches("[0-9]+") && newTelephoneNumber.length() > 8 && newTelephoneNumber.length() < 11) {
+                            System.out.print("Telephone number has successfully been changed from " + customerToEdit.getCustomerPhoneNumber());
+                            customerToEdit.setCustomerPhoneNumber(newTelephoneNumber);
+                            System.out.println(" to " + customerToEdit.getCustomerPhoneNumber());
+                        } else {
+                            System.out.println("Invalid input.");
+                        }
+                        break;
+                    case 2: // Edit customer address
+                        String newAddress = null;
+                        System.out.println("Current address of customer is: " + customerToEdit.getCustomerAdress());
+                        System.out.println("Enter new address: ");
+                        try {
+                            newAddress = input.nextLine();
+                        } catch (Exception e) {
+                            System.out.println("Invalid input.");
+                            input.nextLine();
+                        }
+                        if (newAddress != null && !newAddress.equals("")) {
+                            System.out.print("Address has successfully been changed from " + customerToEdit.getCustomerAdress());
+                            customerToEdit.setCustomerAdress(newAddress);
+                            System.out.println(" to " + customerToEdit.getCustomerAdress());
+                        } else {
+                            System.out.println("Not a valid address.");
+                        }
+                        break;
+                    case 3:
+                        // Does nothing but lets user get out of menu.
+                        break;
+                    default:
+                        System.out.println("Choice outside menu range.");
+                        break;
+                }
+            } else {
+                System.out.println("No customers with entered SSN number could be found.");
             }
-        } else {
-            System.out.println("No customers with entered SSN number could be found.");
-        }
-
     }
 
     private int editCustomerMenu() {
