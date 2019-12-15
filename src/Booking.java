@@ -20,13 +20,14 @@ public class Booking {
         this.totalPrice = findTotalPrice(checkInDate, checkOutDate, bookedRooms);
     }
 
-    private double findTotalPrice(Date checkInDate, Date checkOutDate, ArrayList<Room> bookedRooms) {   // Function to calculate the total price for a booking
+    public double findTotalPrice(Date checkInDate, Date checkOutDate, ArrayList<Room> bookedRooms) {   // Function to calculate the total price for a booking
         double totalPrice = 0;
         long days = 0;
         days = Math.abs((checkInDate.getTime() - checkOutDate.getTime()) / 86400000);   // Milliseconds for 24 hours
         for(Room room : bookedRooms) {
             totalPrice += room.getPricePerNight() * days;
         }
+        this.totalPrice = totalPrice;
         return totalPrice;
     }
 
@@ -66,9 +67,13 @@ public class Booking {
         this.totalPrice = totalPrice;
     }
 
-    public void setBookedRooms(ArrayList<Room> bookedRooms) {
-        this.bookedRooms = bookedRooms;
+    public void addBookedRoom(Room bookedRoom) {
+        this.bookedRooms.add(bookedRoom);
     }
+    public void removeBookedRoom(Room bookedRoom){
+        this.bookedRooms.remove(bookedRoom);
+    }
+
 
     @Override
     public String toString() {
