@@ -321,6 +321,45 @@ public class HotelLogic {
         customerList.add(customerInfo);
     }
 
+    public void viewAllRooms() {
+
+        System.out.println("\n--------------All rooms--------------");
+        if (roomList.size() > 0) {
+            for (int i = 0; i < roomList.size(); i++) {
+
+                boolean balcony;
+                boolean noBalcony;
+                boolean isBooked;
+                boolean notBooked;
+                balcony = roomList.get(i).getHasBalcony() == true;
+                noBalcony = roomList.get(i).getHasBalcony() == false;
+                isBooked = roomList.get(i).getBooked() == true;
+                notBooked = roomList.get(i).getBooked() == false;
+
+                System.out.print("\nRoom nr: " + roomList.get(i).getRoomNumber());
+
+                if (isBooked) {
+                    System.out.print("  [BOOKED]");
+                } else if (notBooked) {
+                    System.out.print("  [AVAILABLE]");
+                }
+
+                System.out.println("\nNumber of beds: " + roomList.get(i).getNumberOfBeds() +
+                        "\nPrice per night: " + roomList.get(i).getPricePerNight() +"0kr");
+
+                if (balcony) {
+                    System.out.println("This room has a balcony.");
+                } else if (noBalcony){
+                    System.out.println("This room has not a balcony.");
+                }
+            }
+            System.out.println("-------------------------------------\n");
+        } else {
+            System.out.println("There are no rooms to view.");
+            System.out.println("-------------------------------------\n");
+        }
+    }
+
     public void editRoom() {
         if (roomList.size() > 0) {
             boolean successfully = true;
