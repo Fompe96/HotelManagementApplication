@@ -28,6 +28,7 @@ public class HotelApp {
             System.out.println("9.Edit booking");
             System.out.println("10.View customer information");
             System.out.println("11.Remove customer");
+            System.out.println("12.Remove room");
             System.out.println("0.Exit program");
             try {
                 userChoice = Integer.parseInt(input.nextLine());
@@ -52,7 +53,7 @@ public class HotelApp {
                     myLogic.checkIn();
                     break;
                 case 6:
-                    //Add check out method
+                    myLogic.checkOut();
                     break;
                 case 7:
                     myLogic.editRoom();
@@ -69,6 +70,11 @@ public class HotelApp {
                 case 11:
                     myLogic.removeCustomer();
                     break;
+
+                case 12:
+                    myLogic.removeRoom();
+                    break;
+
                 case 0:
                     System.out.println("Have a nice day!");
                     System.exit(0);
