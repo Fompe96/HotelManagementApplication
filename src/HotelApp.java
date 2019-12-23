@@ -46,7 +46,7 @@ public class HotelApp {
                     myLogic.addNewCustomer();
                     break;
                 case 3:
-                    myLogic.makeBooking();
+                    myLogic.makeBookingInput();  // Call to makeBookingInput to then calls makeBooking.
                     break;
                 case 4:
                     myLogic.viewAllRooms();
