@@ -196,7 +196,6 @@ public class HotelLogic {
     }
 
 
-
     private Date stringToDate(String stringDate) {  // Method used by makeBooking to convert strings to dates.
         SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd");
         try {
@@ -244,8 +243,10 @@ public class HotelLogic {
 
         try {
             numberOfBeds = input.nextInt();
+            input.nextLine();
         } catch (Exception e) {
             System.out.println("Invalid input enter a number");
+            input.nextLine();
             proceed = false;
         }
 
@@ -255,7 +256,7 @@ public class HotelLogic {
             String answerBalcony;
 
             do {
-                answerBalcony = input.next();
+                answerBalcony = input.nextLine();
                 if (answerBalcony.equals("Yes")) {
                     hasBalcony = true;
                     break;
@@ -274,8 +275,10 @@ public class HotelLogic {
 
             try {
                 pricePerNight = input.nextDouble();
+                input.nextLine();
             } catch (Exception e) {
                 System.out.println("Invalid option enter a number with two decimals");
+                input.nextLine();
                 proceed = false;
             }
         }
@@ -962,6 +965,35 @@ public class HotelLogic {
                 }
 
             }
+        }
+    }
+
+    public void searchForBooking() {
+        if (bookingsList.size() > 0) {
+            System.out.println("Enter ID of booking you wish to view:");
+            int idToView = 0;
+            try {
+                idToView = input.nextInt();
+                input.nextLine();
+            } catch (Exception e) {
+                System.out.println("Invalid input");
+                input.nextLine();
+            }
+            if (idToView > 0) {
+                System.out.println("--- Information about booking with ID " + idToView + ": ---");
+                for(Booking booking: bookingsList) {
+                    if (booking.getBookingId() == idToView) {
+                        System.out.println(booking);
+                        System.out.println("SSN of customer: " + booking.getSsn() + "\n" +
+                                "---------------------------------------------");
+                        break;
+                    } else {
+                        System.out.println("No booking with entered ID could be found.");
+                    }
+                }
+            }
+        } else {
+            System.out.println("There are no bookings to view.");
         }
     }
 

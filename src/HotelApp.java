@@ -31,6 +31,7 @@ public class HotelApp {
             System.out.println("12.View customer information");
             System.out.println("13.Remove customer");
             System.out.println("14.Remove room");
+            System.out.println("15.Search for a booking");
             System.out.println("0.Exit program");
             try {
                 userChoice = Integer.parseInt(input.nextLine());
@@ -79,9 +80,15 @@ public class HotelApp {
 
                 case 13:
                     myLogic.removeCustomer();
+                    break;
 
                 case 14:
                     myLogic.removeRoom();
+                    break;
+
+                case 15:
+                    myLogic.searchForBooking();
+                    break;
 
                 case 0:
                     System.out.println("Have a nice day!");
