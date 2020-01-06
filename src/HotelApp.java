@@ -53,7 +53,7 @@ public class HotelApp {
                     myLogic.viewAllRooms();
                     break;
                 case 5:
-                    myLogic.availableInTimeMenu();
+                    myLogic.availableRoomsMenu();
                     break;
                 case 6:
                     myLogic.checkIn();

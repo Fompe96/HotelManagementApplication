@@ -46,9 +46,40 @@ public class HotelLogic {
         // returns added rooms.
         return availableRooms;
     }
+    public void availableRoomsMenu() {
+        Calendar cal = Calendar.getInstance();
+        Date currentDate = cal.getTime();
+        int choice;
+        boolean check = false;
+       do{
+           System.out.println("[1] Check for current date.");
+           System.out.println("[2] Check for other dates.");
+           System.out.println("[0] Exit.");
+           choice = promptForInt();
+           if (choice == 1 || choice == 2 || choice == 0){
+               check = true;
+           }else {
+               System.out.println("You entered an invalid number, please try again.");
+           }
+       }while (!check);
+       switch (choice){
+           case 1 :
+               for (int i = 0; i < availableInTime(currentDate, currentDate).size(); i++) {
+                   System.out.println(availableInTime(currentDate, currentDate).get(i).toString());
+               }
+               break;
+           case 2 :
+               availableInTimeMenu();
+               break;
+           default:
+               return;
+       }
+
+
+    }
 
     // menu for "available rooms in time period"
-    public void availableInTimeMenu() {
+    private void availableInTimeMenu() {
         Calendar cal = Calendar.getInstance();
         Date currentDate = cal.getTime();
         cal.add(Calendar.YEAR, 25);
@@ -65,15 +96,17 @@ public class HotelLogic {
             System.out.println("Enter desired date for check out (yyyy-mm-dd): ");
             out = promptForDate();
         } while (out == null);
-        // checks if check in date i in the past
+        // checks if check in date is in the past
         if (in.compareTo(currentDate) < 0) {
             System.out.println("It is not possible to check in too a date in history, try again.");
             availableInTimeMenu();
-            //checks if sheck in date is more than 25 years in the future.
+            //checks if check in date is more than 25 years in the future.
         } else if (out.compareTo(in25Years) > 0) {
             System.out.println("maximum time to book in the future is 25 years, try again.");
             availableInTimeMenu();
-            // passes two dates to availableInTime
+            // checks if the in date is after the out date.
+        } else if (in.compareTo(out) > 0){
+            System.out.println("the check in date can't be after the check out date");
         } else {
             for (int i = 0; i < availableInTime(in, out).size(); i++) {
                 System.out.println(availableInTime(in, out).get(i).toString());
@@ -770,7 +803,7 @@ public class HotelLogic {
     // menu that shows the options for editing a booking
     private int editBookingMenu() {
         int choice = 0;
-        System.out.println("What information about the customer do you wish to edit? \n" +
+        System.out.println("What information about the booking do you wish to edit? \n" +
                 "1. Check in/out \n" +
                 "2. Room(s) \n" +
                 "3. Exit ");
@@ -787,6 +820,7 @@ public class HotelLogic {
     // method with logic for editing a booking.
     public void editBooking(String customerSsn) {
         Calendar cal = Calendar.getInstance();
+        Date currentDate = cal.getTime();
         Date newDate;
         ArrayList<Booking> customerBookings = new ArrayList<>();
 // prints all bookings registered on the customer.
@@ -794,10 +828,10 @@ public class HotelLogic {
             if (booking.getSsn().equals(customerSsn)) {
                 System.out.println(booking);
                 customerBookings.add(booking);
-            } else {
-                System.out.println("No customer with that ssn could be found.");
-                return;
             }
+        }
+        if (customerBookings.size() == 0){
+            System.out.println("No customer with that ssn could be found.");
         }
 // specifies which booking to edit.
         int bookingId = 0;
@@ -805,6 +839,16 @@ public class HotelLogic {
             System.out.println("enter booking id for the booking you want to change.");
             bookingId = promptForInt();
         } while (bookingId == 0);
+        boolean checker = false;
+        for (Booking booking : customerBookings){
+            if (booking.getBookingId() == bookingId){
+                checker = true;
+            }
+        }
+        if (checker == false){
+            System.out.println("A booking with that id does not exist for this customer.");
+            return;
+        }
 
 
         int choice = editBookingMenu();
@@ -815,11 +859,25 @@ public class HotelLogic {
                 switch (choice) {
 // Logic for editing check in/out dates.
                     case 1:
+                        Date newInCheck;
+                        Date newOutCheck;
 
-                        System.out.print("Enter new check in: (yyyy-mm-dd) ");
-                        Date newInCheck = promptForDate();
-                        System.out.print("Enter new check out: (yyyy-mm-dd)");
-                        Date newOutCheck = promptForDate();
+                        do {
+                            System.out.print("Enter new check in: (yyyy-mm-dd) ");
+                             newInCheck = promptForDate();
+                            System.out.print("Enter new check out: (yyyy-mm-dd)");
+                             newOutCheck = promptForDate();
+                             if (newInCheck == null || newOutCheck == null){
+                                 System.out.println("Invalid input try again.");
+                             }
+                        }while(newInCheck == null || newOutCheck == null);
+                        if (newInCheck.compareTo(currentDate) < 0){
+                            System.out.println("you cant check in to a date that has already been.");
+                            return;
+                        }else if (newOutCheck.compareTo(newInCheck) < 0){
+                            System.out.println("you cant check out before the check in date.");
+                            return;
+                        }
 
                         if (booking.getCheckInDate().compareTo(newInCheck) >= 0 && booking.getCheckOutDate().compareTo(newOutCheck) >= 0) {
                             ArrayList<Room> rooms = new ArrayList();
@@ -846,7 +904,6 @@ public class HotelLogic {
                             String string = input.next();
                             if (string.equals("Yes")) {
                                 for (Room room : booking.getBookedRooms()) {
-                                    int checker = 0;
                                     for (int i = 0; i < rooms.size(); i++) {
                                         if (rooms.get(i) != room) {
                                             booking.removeBookedRoom(room);
@@ -891,7 +948,6 @@ public class HotelLogic {
 
                             if (string.equals("Yes")) {
                                 for (Room room : booking.getBookedRooms()) {
-                                    int checker = 0;
                                     for (int i = 0; i < rooms.size(); i++) {
                                         if (rooms.get(i) != room) {
                                             booking.getBookedRooms().remove(room);
@@ -951,7 +1007,18 @@ public class HotelLogic {
                             for (Room room : removeRooms) {
                                 System.out.println("Room nr: " + room.getRoomNumber() + " removed.");
                                 booking.removeBookedRoom(room);
+                                room.setBooked(false);
                             }
+                            for (Room room : removeRooms){
+                                for (int i = 0; i < bookingsList.size() ; i++) {
+                                    for (int j = 0; j <bookingsList.get(i).getBookedRooms().size() ; j++) {
+                                        if (room.getRoomNumber() == bookingsList.get(i).getBookedRooms().get(j).getRoomNumber()){
+                                            room.setBooked(true);
+                                        }
+                                    }
+                                }
+                            }
+
                         } else {
                             System.out.println("You must type add or remove.");
                         }
