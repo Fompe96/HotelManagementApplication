@@ -2,14 +2,7 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="4bf045db-c63b-442e-803b-f68f12148cc4" name="Default Changelist" comment="">
-      <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/HotelManagementApplication/Booking.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/HotelManagementApplication/Booking.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/HotelManagementApplication/Customer.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/HotelManagementApplication/Customer.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/HotelManagementApplication/HotelApp.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/HotelManagementApplication/HotelApp.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/HotelManagementApplication/HotelLogic.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/HotelManagementApplication/HotelLogic.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/HotelManagementApplication/Room.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/HotelManagementApplication/Room.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/HotelLogic.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/HotelLogic.java" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -20,6 +13,13 @@
   <component name="CoverageViewManager">
     <option name="myElementSize" value="360" />
   </component>
+  <component name="FileTemplateManagerImpl">
+    <option name="RECENT_TEMPLATES">
+      <list>
+        <option value="Class" />
+      </list>
+    </option>
+  </component>
   <component name="Git.Settings">
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
   </component>
@@ -29,18 +29,6 @@
     <property name="project.structure.last.edited" value="Project" />
     <property name="project.structure.proportion" value="0.15" />
     <property name="project.structure.side.proportion" value="0.2" />
-  </component>
-  <component name="RunDashboard">
-    <option name="ruleStates">
-      <list>
-        <RuleState>
-          <option name="name" value="ConfigurationTypeDashboardGroupingRule" />
-        </RuleState>
-        <RuleState>
-          <option name="name" value="StatusDashboardGroupingRule" />
-        </RuleState>
-      </list>
-    </option>
   </component>
   <component name="RunDashboard">
     <option name="ruleStates">
