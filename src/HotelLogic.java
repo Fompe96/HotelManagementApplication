@@ -46,34 +46,35 @@ public class HotelLogic {
         // returns added rooms.
         return availableRooms;
     }
+
     public void availableRoomsMenu() {
         Calendar cal = Calendar.getInstance();
         Date currentDate = cal.getTime();
         int choice;
         boolean check = false;
-       do{
-           System.out.println("[1] Check for current date.");
-           System.out.println("[2] Check for other dates.");
-           System.out.println("[0] Exit.");
-           choice = promptForInt();
-           if (choice == 1 || choice == 2 || choice == 0){
-               check = true;
-           }else {
-               System.out.println("You entered an invalid number, please try again.");
-           }
-       }while (!check);
-       switch (choice){
-           case 1 :
-               for (int i = 0; i < availableInTime(currentDate, currentDate).size(); i++) {
-                   System.out.println(availableInTime(currentDate, currentDate).get(i).toString());
-               }
-               break;
-           case 2 :
-               availableInTimeMenu();
-               break;
-           default:
-               return;
-       }
+        do {
+            System.out.println("[1] Check for current date.");
+            System.out.println("[2] Check for other dates.");
+            System.out.println("[0] Exit.");
+            choice = promptForInt();
+            if (choice == 1 || choice == 2 || choice == 0) {
+                check = true;
+            } else {
+                System.out.println("You entered an invalid number, please try again.");
+            }
+        } while (!check);
+        switch (choice) {
+            case 1:
+                for (int i = 0; i < availableInTime(currentDate, currentDate).size(); i++) {
+                    System.out.println(availableInTime(currentDate, currentDate).get(i).toString());
+                }
+                break;
+            case 2:
+                availableInTimeMenu();
+                break;
+            default:
+                return;
+        }
 
 
     }
@@ -105,7 +106,7 @@ public class HotelLogic {
             System.out.println("maximum time to book in the future is 25 years, try again.");
             availableInTimeMenu();
             // checks if the in date is after the out date.
-        } else if (in.compareTo(out) > 0){
+        } else if (in.compareTo(out) > 0) {
             System.out.println("the check in date can't be after the check out date");
         } else {
             for (int i = 0; i < availableInTime(in, out).size(); i++) {
@@ -162,7 +163,7 @@ public class HotelLogic {
                     System.out.print(room);
                 }
                 System.out.println("--------------------------------- \n" +
-                        "How many rooms would you like to book?");
+                        "How many rooms would you like to book? (Maximum  " + availableRooms.size() + " room(s)):");
                 int numOfRoomsToBook = promptForInteger();
                 if (numOfRoomsToBook < 1) {
                     successfully = false;
@@ -251,6 +252,7 @@ public class HotelLogic {
 
     private Date promptForDate() {  // Method used by makeBooking to prompt user to enter a date in the form of a string and call stringToDate
         String stringDate = input.next();
+        input.nextLine();
         return stringToDate(stringDate);
     }
 
@@ -830,7 +832,7 @@ public class HotelLogic {
                 customerBookings.add(booking);
             }
         }
-        if (customerBookings.size() == 0){
+        if (customerBookings.size() == 0) {
             System.out.println("No customer with that ssn could be found.");
         }
 // specifies which booking to edit.
@@ -840,12 +842,12 @@ public class HotelLogic {
             bookingId = promptForInt();
         } while (bookingId == 0);
         boolean checker = false;
-        for (Booking booking : customerBookings){
-            if (booking.getBookingId() == bookingId){
+        for (Booking booking : customerBookings) {
+            if (booking.getBookingId() == bookingId) {
                 checker = true;
             }
         }
-        if (checker == false){
+        if (checker == false) {
             System.out.println("A booking with that id does not exist for this customer.");
             return;
         }
@@ -864,17 +866,17 @@ public class HotelLogic {
 
                         do {
                             System.out.print("Enter new check in: (yyyy-mm-dd) ");
-                             newInCheck = promptForDate();
+                            newInCheck = promptForDate();
                             System.out.print("Enter new check out: (yyyy-mm-dd)");
-                             newOutCheck = promptForDate();
-                             if (newInCheck == null || newOutCheck == null){
-                                 System.out.println("Invalid input try again.");
-                             }
-                        }while(newInCheck == null || newOutCheck == null);
-                        if (newInCheck.compareTo(currentDate) < 0){
+                            newOutCheck = promptForDate();
+                            if (newInCheck == null || newOutCheck == null) {
+                                System.out.println("Invalid input try again.");
+                            }
+                        } while (newInCheck == null || newOutCheck == null);
+                        if (newInCheck.compareTo(currentDate) < 0) {
                             System.out.println("you cant check in to a date that has already been.");
                             return;
-                        }else if (newOutCheck.compareTo(newInCheck) < 0){
+                        } else if (newOutCheck.compareTo(newInCheck) < 0) {
                             System.out.println("you cant check out before the check in date.");
                             return;
                         }
@@ -1009,10 +1011,10 @@ public class HotelLogic {
                                 booking.removeBookedRoom(room);
                                 room.setBooked(false);
                             }
-                            for (Room room : removeRooms){
-                                for (int i = 0; i < bookingsList.size() ; i++) {
-                                    for (int j = 0; j <bookingsList.get(i).getBookedRooms().size() ; j++) {
-                                        if (room.getRoomNumber() == bookingsList.get(i).getBookedRooms().get(j).getRoomNumber()){
+                            for (Room room : removeRooms) {
+                                for (int i = 0; i < bookingsList.size(); i++) {
+                                    for (int j = 0; j < bookingsList.get(i).getBookedRooms().size(); j++) {
+                                        if (room.getRoomNumber() == bookingsList.get(i).getBookedRooms().get(j).getRoomNumber()) {
                                             room.setBooked(true);
                                         }
                                     }
@@ -1047,16 +1049,19 @@ public class HotelLogic {
                 input.nextLine();
             }
             if (idToView > 0) {
-                System.out.println("--- Information about booking with ID " + idToView + ": ---");
-                for(Booking booking: bookingsList) {
+                boolean match = false;
+                for (Booking booking : bookingsList) {
                     if (booking.getBookingId() == idToView) {
+                        System.out.println("--- Information about booking with ID " + idToView + ": ---");
                         System.out.println(booking);
                         System.out.println("SSN of customer: " + booking.getSsn() + "\n" +
                                 "---------------------------------------------");
+                        match = true;
                         break;
-                    } else {
-                        System.out.println("No booking with entered ID could be found.");
                     }
+                }
+                if (!match) {
+                    System.out.println("No booking with entered ID could be found.");
                 }
             }
         } else {
