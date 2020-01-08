@@ -14,6 +14,197 @@ public class HotelLogic {
 
     private Scanner input = new Scanner(System.in);
 
+    public void loginMenu() {
+        int userChoice;
+        do {
+
+            System.out.println(" ____________________ ");
+            System.out.println("|      [LOG IN]      |");
+            System.out.println("| 1. Employer        |");
+            System.out.println("| 2. Customer        |");
+            System.out.println("| 3. Register        |");
+            System.out.println("|____________________|");
+            System.out.println(" (Employer-Username: 1)\n (Employer-Password: 2)   //David :)");
+            System.out.print(" >>");
+            userChoice = Integer.parseInt(input.nextLine());
+
+            if (userChoice == 1) {
+                loginEmployer();
+            }
+            if (userChoice == 2) {
+                loginCustomer();
+            }
+            if (userChoice == 3) {
+                 register();
+            }
+        } while (userChoice <= 3);
+        if (userChoice > 3) {
+            System.out.println("Wrong input. Choose option 1, 2 or 3.");
+            loginMenu();
+        }
+    }
+
+    public void loginEmployer() {
+        String userName;
+        String password;
+        String empUsername = "1";
+        String empPassword = "2";
+
+        do {
+            System.out.println("Username: ");
+            userName = input.nextLine();
+            System.out.println("Password: ");
+            password = input.nextLine();
+            System.out.println("");
+            if (!userName.equals(empUsername) || !password.equals(empPassword)) {
+                System.out.println("Wrong username or password.\nPlease try again.\n");
+            }
+        } while (!userName.equals(empUsername) || !password.equals(empPassword));
+        System.out.println("Welcome!\n");
+        HotelApp.myHotel.showMenu();
+    }
+
+    public void loginCustomer() {
+        String userName;
+        String password;
+
+        try {
+            System.out.print("Enter social security number: ");
+            userName = input.nextLine();
+            System.out.print("Enter password: ");
+            password = input.nextLine();
+        }catch (Exception e){
+            System.out.println("Invalid input for ssn or password");
+            return;
+        }
+
+
+        boolean successfully = false;
+
+        for (Customer customer : customerList) {    // Loop controls that the customer with entered ssn number exists in list.
+            if (userName.equals(customer.getCustomerSsn())) {
+                successfully = true;
+                break;
+            }
+        }
+        if (successfully) {
+            // check if ssn and password match the same object.
+            for (Customer customer : customerList){
+                if (userName != null && userName.equals(customer.getCustomerSsn()) && password.equals(customer.getCustomerPassword())) {
+                    System.out.print("Welcome!");
+                    HotelApp.myHotel.customerMenu(userName);
+                } else {
+                    System.out.println("Wrong password. try again.");
+                }
+            }
+
+        }else{
+            System.out.println("no customer with that ssn exists.");
+        }
+    }
+
+
+
+    public void register() {
+
+
+        boolean successfully = false;
+        String ssn;
+        String password;
+
+
+            int choice = customerRegSub();
+            switch (choice) {
+                case 1: // Register as an existing customer.
+                    do {
+                        System.out.print("Enter your ssn: ");
+                        ssn = input.nextLine();
+                    }while (ssn == null);
+                    for (Customer customer : customerList) {    // Loop controls that the customer with entered ssn number exists in list.
+                        if (ssn.equals(customer.getCustomerSsn())) {
+                            successfully = true;
+                            break;
+                        }
+                    }
+                    if (successfully) {
+                        // sets a password to the correct customer
+                        for (Customer customer : customerList) {
+                            if (customer.getCustomerSsn().equals(ssn)) {
+
+                                do {
+                                    System.out.print("Enter desired password: ");
+                                    password = input.nextLine();
+                                    customer.setCustomerPassword(password);
+                                    if (password.length() < 4) {
+                                        password = null;
+                                        System.out.println("the password need to be longer than 4 characters.");
+                                    }
+                                } while (password == null);
+                                System.out.println("Password successfully set.");
+                            }
+                        }
+                    }else {
+                        System.out.println("No customers with entered SSN number could be found.");
+                    }
+
+                    break;
+                case 2: // Register as a new customer.
+                   ssn = addNewCustomer();
+                    for (Customer customer : customerList) {    // Loop controls that the customer with entered ssn number exists in list.
+                        if (ssn.equals(customer.getCustomerSsn())) {
+                            successfully = true;
+                            break;
+                        }
+                    }
+                    if (successfully) {
+                        // sets a password to the correct customer
+                        for (Customer customer : customerList) {
+                            if (customer.getCustomerSsn().equals(ssn)) {
+
+                                do {
+                                    System.out.print("Enter desired password: ");
+                                    password = input.nextLine();
+                                    customer.setCustomerPassword(password);
+                                    if (password.length() < 4) {
+                                        password = null;
+                                        System.out.println("the password need to be longer than 4 characters.");
+                                    }
+                                } while (password == null);
+                                System.out.println("Password successfully set.");
+                            }
+                        }
+                    }
+
+
+                    break;
+                case 3:
+                    // Goes back to login-menu
+                    loginMenu();
+                    break;
+                default:
+                    System.out.println("Choice outside menu range.");
+                    break;
+            }
+        }
+
+
+
+    private int customerRegSub() {
+        int choice = 0;
+        System.out.println("What do you want to do? \n" +
+                "1. Register as an existing customer. \n" +
+                "2. Register as a new customer. \n" +
+                "3. Go back to login-menu. ");
+
+        try {
+            choice = input.nextInt();
+            input.nextLine();
+        } catch (Exception e) {
+            System.out.println("Input has to be a number between 1-3.");
+        }
+        return choice;
+    }
+
     public Room getRoom(int roomNbr) {  // Demo version
         Room roomToReturn = null;
         for (Room room : roomList) {
@@ -25,7 +216,7 @@ public class HotelLogic {
     }
 
     // logic for "available rooms in time period."
-    public ArrayList<Room> availableInTime(Date in, Date out) {
+    private ArrayList<Room> availableInTime(Date in, Date out) {
         ArrayList<Room> availableRooms = new ArrayList<>();
 
         // checks if booking to a room exist and adds it if not.
@@ -120,7 +311,7 @@ public class HotelLogic {
         System.out.println("Please enter SSN for customer to book: YYYYMMDD-XXXX");
         String ssn = input.nextLine();
         for (Customer customer : customerList) {
-            if (customer.getCustomerSSN().equals(ssn)) {
+            if (customer.getCustomerSsn().equals(ssn)) {
                 successfully = true;
                 break;
             }
@@ -132,7 +323,7 @@ public class HotelLogic {
         }
     }
 
-    public boolean makeBooking(String ssn) { // String ssn, Date checkInDate, Date checkOutDate, ArrayList<Room> bookedRooms
+    private boolean makeBooking(String ssn) { // String ssn, Date checkInDate, Date checkOutDate, ArrayList<Room> bookedRooms
         boolean successfully = true;
         System.out.println("What day would you like to check in? YYYY-MM-DD");
         Date checkInDate = promptForDate();
@@ -216,7 +407,7 @@ public class HotelLogic {
                         Booking booking = new Booking(checkInDate, checkOutDate, ssn, roomsToBook);
                         bookingsList.add(booking);
                         for (Customer customer : customerList) {
-                            if (customer.getCustomerSSN().equals(ssn)) {
+                            if (customer.getCustomerSsn().equals(ssn)) {
                                 customer.getBookings().add(booking);
                                 System.out.println(customer.getBookings().get(0));
                                 break;
@@ -324,7 +515,7 @@ public class HotelLogic {
         }
     }
 
-    public void addNewCustomer() {
+    public String addNewCustomer() {
         String customerName;
         String customerSSN;
         String customerAdress;
@@ -361,6 +552,7 @@ public class HotelLogic {
         Customer customerInfo = new Customer(customerName, customerSSN, customerAdress, customerPhoneNumber);
 
         customerList.add(customerInfo);
+        return customerSSN;
     }
 
     public void viewAllRooms() {
@@ -558,7 +750,7 @@ public class HotelLogic {
         Customer customerToEdit = null;
 
         for (Customer customer : customerList) {    // Loop controls that the customer with entered ssn number exists in list.
-            if (customerSsn.equals(customer.getCustomerSSN())) {
+            if (customerSsn.equals(customer.getCustomerSsn())) {
                 successfully = true;
                 customerToEdit = customer;
                 break;
@@ -586,7 +778,7 @@ public class HotelLogic {
                     break;
                 case 2: // Edit customer address
                     String newAddress = null;
-                    System.out.println("Current address of customer is: " + customerToEdit.getCustomerAdress());
+                    System.out.println("Current address of customer is: " + customerToEdit.getCustomerAddress());
                     System.out.println("Enter new address: ");
                     try {
                         newAddress = input.nextLine();
@@ -595,9 +787,9 @@ public class HotelLogic {
                         input.nextLine();
                     }
                     if (newAddress != null && !newAddress.equals("")) {
-                        System.out.print("Address has successfully been changed from " + customerToEdit.getCustomerAdress());
-                        customerToEdit.setCustomerAdress(newAddress);
-                        System.out.println(" to " + customerToEdit.getCustomerAdress());
+                        System.out.print("Address has successfully been changed from " + customerToEdit.getCustomerAddress());
+                        customerToEdit.setCustomerAddress(newAddress);
+                        System.out.println(" to " + customerToEdit.getCustomerAddress());
                     } else {
                         System.out.println("Not a valid address.");
                     }
@@ -635,8 +827,8 @@ public class HotelLogic {
         if (customerList.size() > 0) {
             for (Customer customer : customerList) {
                 System.out.println("Name: " + customer.getCustomerName() +
-                        "\nSSN: " + customer.getCustomerSSN() +
-                        "\nAdress: " + customer.getCustomerAdress() +
+                        "\nSSN: " + customer.getCustomerSsn() +
+                        "\nAdress: " + customer.getCustomerAddress() +
                         "\nPhone number: " + customer.getCustomerPhoneNumber() + "\n");
             }
             System.out.println("-------------------------------\n");
@@ -662,18 +854,18 @@ public class HotelLogic {
                 successfully = false;
                 Customer customerToPrint = null;
                 for (Customer customer : customerList) {
-                    if (customerSsn.equals(customer.getCustomerSSN())) {
+                    if (customerSsn.equals(customer.getCustomerSsn())) {
                         successfully = true;
                         customerToPrint = customer;
                         break;
                     }
                 }
                 if (successfully) {
-                    System.out.println("----- Information about customer with SSN " + customerToPrint.getCustomerSSN());
+                    System.out.println("----- Information about customer with SSN " + customerToPrint.getCustomerSsn());
                     System.out.println(customerToPrint);
                     System.out.println("------------ Bookings ------------");
                     for (int i = 0; i < bookingsList.size(); i++) {
-                        if (bookingsList.get(i).getSsn().equals(customerToPrint.getCustomerSSN())) {
+                        if (bookingsList.get(i).getSsn().equals(customerToPrint.getCustomerSsn())) {
                             System.out.println(bookingsList.get(i) + "\n" +
                                     "------------ Rooms ------------");
                             for (int j = 0; j < bookingsList.get(i).getBookedRooms().size(); j++) {
@@ -820,7 +1012,7 @@ public class HotelLogic {
     }
 
     // method with logic for editing a booking.
-    public void editBooking(String customerSsn) {
+    private void editBooking(String customerSsn) {
         Calendar cal = Calendar.getInstance();
         Date currentDate = cal.getTime();
         Date newDate;
@@ -1011,10 +1203,21 @@ public class HotelLogic {
                                 booking.removeBookedRoom(room);
                                 room.setBooked(false);
                             }
-                            for (Room room : removeRooms) {
-                                for (int i = 0; i < bookingsList.size(); i++) {
-                                    for (int j = 0; j < bookingsList.get(i).getBookedRooms().size(); j++) {
-                                        if (room.getRoomNumber() == bookingsList.get(i).getBookedRooms().get(j).getRoomNumber()) {
+
+                            if (booking.getBookedRooms().size() == 0){
+                                bookingsList.remove(booking);
+                                System.out.println("the booking has been removed due too no more rooms where registered to the booking.");
+                            }else{
+                                booking.findTotalPrice(booking.getCheckInDate(), booking.getCheckOutDate(), booking.getBookedRooms());
+                                System.out.println("new booking info: ");
+                                System.out.println(booking);
+                            }
+
+                            for (Room room : removeRooms){
+                                for (int i = 0; i < bookingsList.size() ; i++) {
+                                    for (int j = 0; j <bookingsList.get(i).getBookedRooms().size() ; j++) {
+                                        if (room.getRoomNumber() == bookingsList.get(i).getBookedRooms().get(j).getRoomNumber()){
+
                                             room.setBooked(true);
                                         }
                                     }
@@ -1115,52 +1318,25 @@ public class HotelLogic {
                 ArrayList<Customer> removeCustomer = new ArrayList<>();
                 ArrayList<Booking> removeBooking = new ArrayList<>();
                 for (Customer customer : customerList) {
-                    if (customer.getCustomerSSN().equals(customerSsn)) {
+                    if (customer.getCustomerSsn().equals(customerSsn)) {
                         removeCustomer.add(customer);
                     }
                 }
                 if (removeCustomer.size() == 0) {
                     System.out.println("No customer with that ssn could be found");
                 } else {
-                    ArrayList<Integer> bookedRooms = new ArrayList<>();
                     for (Customer customer : removeCustomer) {
                         customerList.remove(customer);
                         System.out.println("customer with ssn: " + customerSsn + " was successfully removed.");
                     }
                     for (Booking booking : bookingsList) {
-                        for (Room room : booking.getBookedRooms()) {
-                            bookedRooms.add(room.getRoomNumber());
-                        }
 
                         if (booking.getSsn().equals(customerSsn)) {
                             removeBooking.add(booking);
                         }
                     }
-                    for (Booking booking : removeBooking) {
+                    removeBookings(removeBooking);
 
-                        bookingsList.remove(booking);
-                        System.out.println("Booking with Id: " + booking.getBookingId() + " has been removed.");
-                    }
-// Removes bookings associated with the customer.
-                    int size = bookedRooms.size();
-                    for (Booking booking : bookingsList) {
-                        for (Room room : booking.getBookedRooms()) {
-                            for (int i = 0; i < size; i++) {
-                                if (room.getRoomNumber() == bookedRooms.get(i)) {
-                                    bookedRooms.remove(i);
-                                }
-                            }
-                        }
-                    }
-// Sets rooms that no longer have a booking as not booked (show available rooms in time period shows faulty information without this.)
-                    for (Room room : roomList) {
-                        for (int i = 0; i < bookedRooms.size(); i++) {
-                            if (room.getRoomNumber() == bookedRooms.get(i)) {
-                                room.setBooked(false);
-                            }
-
-                        }
-                    }
                 }
 
 
@@ -1169,5 +1345,41 @@ public class HotelLogic {
             System.out.println("there is no customers to remove.");
         }
     }
+    public void removeBookings (ArrayList<Booking> removeBooking) {
 
-}
+        ArrayList<Integer> bookedRooms = new ArrayList<>();
+
+        for (Booking booking : bookingsList) {
+            for (Room room : booking.getBookedRooms()) {
+                bookedRooms.add(room.getRoomNumber());
+            }
+        }
+            for (Booking BookingToRemove : removeBooking) {
+
+                bookingsList.remove(BookingToRemove);
+                System.out.println("Booking with Id: " + BookingToRemove.getBookingId() + " has been removed.");
+            }
+// Removes bookings associated with the customer.
+            int size = bookedRooms.size();
+            for (Booking checkForRoom : bookingsList) {
+                for (Room room : checkForRoom.getBookedRooms()) {
+                    for (int i = 0; i < size; i++) {
+                        if (room.getRoomNumber() == bookedRooms.get(i)) {
+                            bookedRooms.remove(i);
+                        }
+                    }
+                }
+            }
+// Sets rooms that no longer have a booking as not booked (show available rooms in time period shows faulty information without this.)
+            for (Room room : roomList) {
+                for (int i = 0; i < bookedRooms.size(); i++) {
+                    if (room.getRoomNumber() == bookedRooms.get(i)) {
+                        room.setBooked(false);
+                    }
+
+                }
+            }
+        }
+    }
+
+

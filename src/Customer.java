@@ -5,6 +5,7 @@ public class Customer {
     private String customerSSN;
     private String customerAddress;
     private String customerPhoneNumber;
+    private String customerPassword;
     private ArrayList<Booking> bookingList = new ArrayList<>();
 
     public Customer(String customerName, String customerSSN, String customerAdress, String customerPhoneNumber) {
@@ -26,24 +27,31 @@ public class Customer {
         this.customerName = customerName;
     }
 
-    public String getCustomerSSN() {
+    public String getCustomerSsn() {
         return customerSSN;
     }
 
-    public void setCustomerSSN(String customerSSN) {
-        this.customerSSN = customerSSN;
+    public void setCustomerSsn(String customerSsn) {
+        this.customerSSN = customerSsn;
     }
 
-    public String getCustomerAdress() {
+    public String getCustomerAddress() {
         return customerAddress;
     }
 
-    public void setCustomerAdress(String customerAdress) {
+    public void setCustomerAddress(String customerAdress) {
         this.customerAddress = customerAdress;
     }
 
     public String getCustomerPhoneNumber() {
         return customerPhoneNumber;
+    }
+    public void setCustomerPassword(String customerPassword){
+        this.customerPassword = customerPassword;
+    }
+
+    public String getCustomerPassword() {
+        return customerPassword;
     }
 
     public void setCustomerPhoneNumber(String customerPhoneNumber) {
@@ -53,7 +61,7 @@ public class Customer {
     @Override
     public String toString() {
         return "Name: " + getCustomerName() + "\n" +
-                "Address: " + getCustomerAdress() + "\n" +
+                "Address: " + getCustomerAddress() + "\n" +
                 "Telephone number: " + getCustomerPhoneNumber();
     }
 }
