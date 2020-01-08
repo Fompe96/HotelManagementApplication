@@ -9,7 +9,9 @@ public class HotelApp {
 
 
     public static void main(String[] args) {
-
+        myHotel.myLogic.loadRooms();
+        myHotel.myLogic.loadCustomers();
+        myHotel.myLogic.loadBookings();
         myHotel.loginFeature();
 
     }
@@ -100,6 +102,15 @@ public class HotelApp {
 
                 case 0:
                     System.out.println("Have a nice day!");
+                    myLogic.saveRooms();
+                    myLogic.saveCustomers();
+                    myLogic.saveBookings();
+                    myLogic.writeBookings();
+                    myLogic.writeCustomers();
+                    myLogic.writeRooms();
+                    //myLogic.emptyRoomsFile(); // remove comment in order to empty the room file when exiting.
+                    //myLogic.emptyCustomerFile();  //remove comment in order to empty the customer file when exiting.
+                    //myLogic.emptyBookingFile();   //remove comment in order to empty the booking file when exiting.
                     System.exit(0);
                     break;
 
@@ -134,8 +145,10 @@ public class HotelApp {
 
             switch (userChoice) {
                 case 1:
+                    myLogic.makeBooking(customerSsn);
                     break;
                 case 2:
+                    myLogic.availableRoomsMenu();
                     break;
                 case 0:
                     System.out.println("Thank you, have a nice day!");

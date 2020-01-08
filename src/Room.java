@@ -1,7 +1,5 @@
-public class Room {
-
-    private static int incrementer = 0; //Inspired by Simon
-
+public class Room implements java.io.Serializable {
+    private static final long serialversionUID = 2L;
     private int roomNumber;
     private int numberOfBeds;
     private boolean hasBalcony;
@@ -10,8 +8,8 @@ public class Room {
     private boolean checkInOrOut;    //Whilst true the customer has checked in, false the customer has checked out
 
 
-    public Room(int numberOfBeds, boolean hasBalcony, double pricePerNight) {
-        this.roomNumber = ++incrementer;
+    public Room(int roomNumber, int numberOfBeds, boolean hasBalcony, double pricePerNight) {
+        this.roomNumber = roomNumber;
         this.numberOfBeds = numberOfBeds;
         this.hasBalcony = hasBalcony;
         this.pricePerNight = pricePerNight;

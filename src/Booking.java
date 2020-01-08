@@ -2,8 +2,8 @@ import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.Date;
 
-public class Booking {
-    private static int incrementer = 0; // Used to increment bookingId each time a booking is created.
+public class Booking implements java.io.Serializable {
+    private static final long serialversionUID = 1L;
     private int bookingId = 0;
     private Date checkInDate;
     private Date checkOutDate;
@@ -11,8 +11,8 @@ public class Booking {
     private String ssn;
     private ArrayList<Room> bookedRooms;
 
-    public Booking (Date checkInDate, Date checkOutDate, String ssn, ArrayList<Room> bookedRooms) {
-        this.bookingId = ++incrementer;
+    public Booking (int bookingId, Date checkInDate, Date checkOutDate, String ssn, ArrayList<Room> bookedRooms) {
+        this.bookingId = bookingId;
         this.checkInDate = checkInDate;
         this.checkOutDate = checkOutDate;
         this.ssn = ssn;

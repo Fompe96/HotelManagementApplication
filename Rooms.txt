@@ -1,0 +1,7 @@
+Room number: 3
+Price per night: 999,00kr
+Number of beds: 1
+Has balcony
+
+
+----------END----------
