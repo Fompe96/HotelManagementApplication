@@ -2,7 +2,7 @@ import java.util.Scanner;
 
 
 public class HotelApp {
-    HotelLogic myLogic = new HotelLogic();
+     HotelLogic myLogic = new HotelLogic();
 
     public static void main(String[] args) {
 

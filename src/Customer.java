@@ -26,19 +26,19 @@ public class Customer {
         this.customerName = customerName;
     }
 
-    public String getCustomerSSN() {
+    public String getCustomerSsn() {
         return customerSSN;
     }
 
-    public void setCustomerSSN(String customerSSN) {
-        this.customerSSN = customerSSN;
+    public void setCustomerSsn(String customerSsn) {
+        this.customerSSN = customerSsn;
     }
 
-    public String getCustomerAdress() {
+    public String getCustomerAddress() {
         return customerAddress;
     }
 
-    public void setCustomerAdress(String customerAdress) {
+    public void setCustomerAddress(String customerAdress) {
         this.customerAddress = customerAdress;
     }
 
@@ -53,7 +53,7 @@ public class Customer {
     @Override
     public String toString() {
         return "Name: " + getCustomerName() + "\n" +
-                "Address: " + getCustomerAdress() + "\n" +
+                "Address: " + getCustomerAddress() + "\n" +
                 "Telephone number: " + getCustomerPhoneNumber();
     }
 }

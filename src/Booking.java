@@ -84,13 +84,5 @@ public class Booking {
                 "Total price: " + getTotalPrice() + "kr";
     }
 
-     //temporary method used to try out "available rooms in time period."
-    public LocalDate inCheck(LocalDate in){
-        return in;
-    }
 
-      //temporary method used to try out "available rooms in time period."
-    public LocalDate outCheck(LocalDate out){
-        return out;
-    }
 }
