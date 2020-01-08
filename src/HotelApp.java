@@ -2,13 +2,21 @@ import java.util.Scanner;
 
 
 public class HotelApp {
-     HotelLogic myLogic = new HotelLogic();
+
+    static HotelApp myHotel = new HotelApp();
+    HotelLogic myLogic = new HotelLogic();
+    Scanner input = new Scanner(System.in);
+
 
     public static void main(String[] args) {
 
-        HotelApp myHotel = new HotelApp();
-        myHotel.showMenu();
+        myHotel.loginFeature();
 
+    }
+
+    public void loginFeature() {
+        myLogic.loginMenu();
+        showMenu();
     }
 
     public void showMenu() {
@@ -102,6 +110,43 @@ public class HotelApp {
 
         } while (userChoice != 0);
 
+    }
+
+    public void customerMenu(String ssn) {
+        String customerSsn = ssn;
+
+        // Taget från Rezas meny-feature.
+
+        // Ska ha andra meny-val?
+
+        int userChoice = 0;
+
+        do {
+            System.out.println("Press a number according to the action you want to make");
+            System.out.println("1.Make booking");
+            System.out.println("2.View available rooms in period");
+            System.out.println("0.Exit program");
+
+            try {
+                userChoice = Integer.parseInt(input.nextLine());
+            } catch (Exception e) {
+            }
+
+            switch (userChoice) {
+                case 1:
+                    break;
+                case 2:
+                    break;
+                case 0:
+                    System.out.println("Thank you, have a nice day!");
+                    System.exit(0);
+                    break;
+                default:
+                    System.out.println("invalid input, try again.");
+                    break;
+            }
+
+        } while (userChoice != 0);
     }
 
 }

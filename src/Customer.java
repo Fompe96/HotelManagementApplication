@@ -5,6 +5,7 @@ public class Customer {
     private String customerSSN;
     private String customerAddress;
     private String customerPhoneNumber;
+    private String customerPassword;
     private ArrayList<Booking> bookingList = new ArrayList<>();
 
     public Customer(String customerName, String customerSSN, String customerAdress, String customerPhoneNumber) {
@@ -44,6 +45,13 @@ public class Customer {
 
     public String getCustomerPhoneNumber() {
         return customerPhoneNumber;
+    }
+    public void setCustomerPassword(String customerPassword){
+        this.customerPassword = customerPassword;
+    }
+
+    public String getCustomerPassword() {
+        return customerPassword;
     }
 
     public void setCustomerPhoneNumber(String customerPhoneNumber) {

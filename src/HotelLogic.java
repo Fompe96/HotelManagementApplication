@@ -14,6 +14,197 @@ public class HotelLogic {
 
     private Scanner input = new Scanner(System.in);
 
+    public void loginMenu() {
+        int userChoice;
+        do {
+
+            System.out.println(" ____________________ ");
+            System.out.println("|      [LOG IN]      |");
+            System.out.println("| 1. Employer        |");
+            System.out.println("| 2. Customer        |");
+            System.out.println("| 3. Register        |");
+            System.out.println("|____________________|");
+            System.out.println(" (Employer-Username: 1)\n (Employer-Password: 2)   //David :)");
+            System.out.print(" >>");
+            userChoice = Integer.parseInt(input.nextLine());
+
+            if (userChoice == 1) {
+                loginEmployer();
+            }
+            if (userChoice == 2) {
+                loginCustomer();
+            }
+            if (userChoice == 3) {
+                 register();
+            }
+        } while (userChoice <= 3);
+        if (userChoice > 3) {
+            System.out.println("Wrong input. Choose option 1, 2 or 3.");
+            loginMenu();
+        }
+    }
+
+    public void loginEmployer() {
+        String userName;
+        String password;
+        String empUsername = "1";
+        String empPassword = "2";
+
+        do {
+            System.out.println("Username: ");
+            userName = input.nextLine();
+            System.out.println("Password: ");
+            password = input.nextLine();
+            System.out.println("");
+            if (!userName.equals(empUsername) || !password.equals(empPassword)) {
+                System.out.println("Wrong username or password.\nPlease try again.\n");
+            }
+        } while (!userName.equals(empUsername) || !password.equals(empPassword));
+        System.out.println("Welcome!\n");
+        HotelApp.myHotel.showMenu();
+    }
+
+    public void loginCustomer() {
+        String userName;
+        String password;
+
+        try {
+            System.out.print("Enter social security number: ");
+            userName = input.nextLine();
+            System.out.print("Enter password: ");
+            password = input.nextLine();
+        }catch (Exception e){
+            System.out.println("Invalid input for ssn or password");
+            return;
+        }
+
+
+        boolean successfully = false;
+
+        for (Customer customer : customerList) {    // Loop controls that the customer with entered ssn number exists in list.
+            if (userName.equals(customer.getCustomerSsn())) {
+                successfully = true;
+                break;
+            }
+        }
+        if (successfully) {
+            // check if ssn and password match the same object.
+            for (Customer customer : customerList){
+                if (userName != null && userName.equals(customer.getCustomerSsn()) && password.equals(customer.getCustomerPassword())) {
+                    System.out.print("Welcome!");
+                    HotelApp.myHotel.customerMenu(userName);
+                } else {
+                    System.out.println("Wrong password. try again.");
+                }
+            }
+
+        }else{
+            System.out.println("no customer with that ssn exists.");
+        }
+    }
+
+
+
+    public void register() {
+
+
+        boolean successfully = false;
+        String ssn;
+        String password;
+
+
+            int choice = customerRegSub();
+            switch (choice) {
+                case 1: // Register as an existing customer.
+                    do {
+                        System.out.print("Enter your ssn: ");
+                        ssn = input.nextLine();
+                    }while (ssn == null);
+                    for (Customer customer : customerList) {    // Loop controls that the customer with entered ssn number exists in list.
+                        if (ssn.equals(customer.getCustomerSsn())) {
+                            successfully = true;
+                            break;
+                        }
+                    }
+                    if (successfully) {
+                        // sets a password to the correct customer
+                        for (Customer customer : customerList) {
+                            if (customer.getCustomerSsn().equals(ssn)) {
+
+                                do {
+                                    System.out.print("Enter desired password: ");
+                                    password = input.nextLine();
+                                    customer.setCustomerPassword(password);
+                                    if (password.length() < 4) {
+                                        password = null;
+                                        System.out.println("the password need to be longer than 4 characters.");
+                                    }
+                                } while (password == null);
+                                System.out.println("Password successfully set.");
+                            }
+                        }
+                    }else {
+                        System.out.println("No customers with entered SSN number could be found.");
+                    }
+
+                    break;
+                case 2: // Register as a new customer.
+                   ssn = addNewCustomer();
+                    for (Customer customer : customerList) {    // Loop controls that the customer with entered ssn number exists in list.
+                        if (ssn.equals(customer.getCustomerSsn())) {
+                            successfully = true;
+                            break;
+                        }
+                    }
+                    if (successfully) {
+                        // sets a password to the correct customer
+                        for (Customer customer : customerList) {
+                            if (customer.getCustomerSsn().equals(ssn)) {
+
+                                do {
+                                    System.out.print("Enter desired password: ");
+                                    password = input.nextLine();
+                                    customer.setCustomerPassword(password);
+                                    if (password.length() < 4) {
+                                        password = null;
+                                        System.out.println("the password need to be longer than 4 characters.");
+                                    }
+                                } while (password == null);
+                                System.out.println("Password successfully set.");
+                            }
+                        }
+                    }
+
+
+                    break;
+                case 3:
+                    // Goes back to login-menu
+                    loginMenu();
+                    break;
+                default:
+                    System.out.println("Choice outside menu range.");
+                    break;
+            }
+        }
+
+
+
+    private int customerRegSub() {
+        int choice = 0;
+        System.out.println("What do you want to do? \n" +
+                "1. Register as an existing customer. \n" +
+                "2. Register as a new customer. \n" +
+                "3. Go back to login-menu. ");
+
+        try {
+            choice = input.nextInt();
+            input.nextLine();
+        } catch (Exception e) {
+            System.out.println("Input has to be a number between 1-3.");
+        }
+        return choice;
+    }
+
     public Room getRoom(int roomNbr) {  // Demo version
         Room roomToReturn = null;
         for (Room room : roomList) {
@@ -46,34 +237,35 @@ public class HotelLogic {
         // returns added rooms.
         return availableRooms;
     }
+
     public void availableRoomsMenu() {
         Calendar cal = Calendar.getInstance();
         Date currentDate = cal.getTime();
         int choice;
         boolean check = false;
-       do{
-           System.out.println("[1] Check for current date.");
-           System.out.println("[2] Check for other dates.");
-           System.out.println("[0] Exit.");
-           choice = promptForInt();
-           if (choice == 1 || choice == 2 || choice == 0){
-               check = true;
-           }else {
-               System.out.println("You entered an invalid number, please try again.");
-           }
-       }while (!check);
-       switch (choice){
-           case 1 :
-               for (int i = 0; i < availableInTime(currentDate, currentDate).size(); i++) {
-                   System.out.println(availableInTime(currentDate, currentDate).get(i).toString());
-               }
-               break;
-           case 2 :
-               availableInTimeMenu();
-               break;
-           default:
-               return;
-       }
+        do {
+            System.out.println("[1] Check for current date.");
+            System.out.println("[2] Check for other dates.");
+            System.out.println("[0] Exit.");
+            choice = promptForInt();
+            if (choice == 1 || choice == 2 || choice == 0) {
+                check = true;
+            } else {
+                System.out.println("You entered an invalid number, please try again.");
+            }
+        } while (!check);
+        switch (choice) {
+            case 1:
+                for (int i = 0; i < availableInTime(currentDate, currentDate).size(); i++) {
+                    System.out.println(availableInTime(currentDate, currentDate).get(i).toString());
+                }
+                break;
+            case 2:
+                availableInTimeMenu();
+                break;
+            default:
+                return;
+        }
 
 
     }
@@ -105,7 +297,7 @@ public class HotelLogic {
             System.out.println("maximum time to book in the future is 25 years, try again.");
             availableInTimeMenu();
             // checks if the in date is after the out date.
-        } else if (in.compareTo(out) > 0){
+        } else if (in.compareTo(out) > 0) {
             System.out.println("the check in date can't be after the check out date");
         } else {
             for (int i = 0; i < availableInTime(in, out).size(); i++) {
@@ -162,7 +354,7 @@ public class HotelLogic {
                     System.out.print(room);
                 }
                 System.out.println("--------------------------------- \n" +
-                        "How many rooms would you like to book?");
+                        "How many rooms would you like to book? (Maximum  " + availableRooms.size() + " room(s)):");
                 int numOfRoomsToBook = promptForInteger();
                 if (numOfRoomsToBook < 1) {
                     successfully = false;
@@ -251,6 +443,7 @@ public class HotelLogic {
 
     private Date promptForDate() {  // Method used by makeBooking to prompt user to enter a date in the form of a string and call stringToDate
         String stringDate = input.next();
+        input.nextLine();
         return stringToDate(stringDate);
     }
 
@@ -322,7 +515,7 @@ public class HotelLogic {
         }
     }
 
-    public void addNewCustomer() {
+    public String addNewCustomer() {
         String customerName;
         String customerSSN;
         String customerAdress;
@@ -359,6 +552,7 @@ public class HotelLogic {
         Customer customerInfo = new Customer(customerName, customerSSN, customerAdress, customerPhoneNumber);
 
         customerList.add(customerInfo);
+        return customerSSN;
     }
 
     public void viewAllRooms() {
@@ -830,7 +1024,7 @@ public class HotelLogic {
                 customerBookings.add(booking);
             }
         }
-        if (customerBookings.size() == 0){
+        if (customerBookings.size() == 0) {
             System.out.println("No customer with that ssn could be found.");
         }
 // specifies which booking to edit.
@@ -840,12 +1034,12 @@ public class HotelLogic {
             bookingId = promptForInt();
         } while (bookingId == 0);
         boolean checker = false;
-        for (Booking booking : customerBookings){
-            if (booking.getBookingId() == bookingId){
+        for (Booking booking : customerBookings) {
+            if (booking.getBookingId() == bookingId) {
                 checker = true;
             }
         }
-        if (checker == false){
+        if (checker == false) {
             System.out.println("A booking with that id does not exist for this customer.");
             return;
         }
@@ -864,17 +1058,17 @@ public class HotelLogic {
 
                         do {
                             System.out.print("Enter new check in: (yyyy-mm-dd) ");
-                             newInCheck = promptForDate();
+                            newInCheck = promptForDate();
                             System.out.print("Enter new check out: (yyyy-mm-dd)");
-                             newOutCheck = promptForDate();
-                             if (newInCheck == null || newOutCheck == null){
-                                 System.out.println("Invalid input try again.");
-                             }
-                        }while(newInCheck == null || newOutCheck == null);
-                        if (newInCheck.compareTo(currentDate) < 0){
+                            newOutCheck = promptForDate();
+                            if (newInCheck == null || newOutCheck == null) {
+                                System.out.println("Invalid input try again.");
+                            }
+                        } while (newInCheck == null || newOutCheck == null);
+                        if (newInCheck.compareTo(currentDate) < 0) {
                             System.out.println("you cant check in to a date that has already been.");
                             return;
-                        }else if (newOutCheck.compareTo(newInCheck) < 0){
+                        } else if (newOutCheck.compareTo(newInCheck) < 0) {
                             System.out.println("you cant check out before the check in date.");
                             return;
                         }
@@ -1009,6 +1203,7 @@ public class HotelLogic {
                                 booking.removeBookedRoom(room);
                                 room.setBooked(false);
                             }
+
                             if (booking.getBookedRooms().size() == 0){
                                 bookingsList.remove(booking);
                                 System.out.println("the booking has been removed due too no more rooms where registered to the booking.");
@@ -1022,6 +1217,7 @@ public class HotelLogic {
                                 for (int i = 0; i < bookingsList.size() ; i++) {
                                     for (int j = 0; j <bookingsList.get(i).getBookedRooms().size() ; j++) {
                                         if (room.getRoomNumber() == bookingsList.get(i).getBookedRooms().get(j).getRoomNumber()){
+
                                             room.setBooked(true);
                                         }
                                     }
@@ -1056,16 +1252,19 @@ public class HotelLogic {
                 input.nextLine();
             }
             if (idToView > 0) {
-                System.out.println("--- Information about booking with ID " + idToView + ": ---");
-                for(Booking booking: bookingsList) {
+                boolean match = false;
+                for (Booking booking : bookingsList) {
                     if (booking.getBookingId() == idToView) {
+                        System.out.println("--- Information about booking with ID " + idToView + ": ---");
                         System.out.println(booking);
                         System.out.println("SSN of customer: " + booking.getSsn() + "\n" +
                                 "---------------------------------------------");
+                        match = true;
                         break;
-                    } else {
-                        System.out.println("No booking with entered ID could be found.");
                     }
+                }
+                if (!match) {
+                    System.out.println("No booking with entered ID could be found.");
                 }
             }
         } else {
