@@ -14,6 +14,174 @@ public class HotelLogic {
 
     private Scanner input = new Scanner(System.in);
 
+    public void loginMenu() {
+        int userChoice;
+        do {
+
+            System.out.println(" ____________________ ");
+            System.out.println("|      [LOG IN]      |");
+            System.out.println("| 1. Employer        |");
+            System.out.println("| 2. Customer        |");
+            System.out.println("| 3. Register        |");
+            System.out.println("|____________________|");
+            System.out.println(" (Employer-Username: 1)\n (Employer-Password: 2)   //David :)");
+            System.out.print(" >>");
+            userChoice = Integer.parseInt(input.nextLine());
+
+            if (userChoice == 1) {
+                loginEmployer();
+                HotelApp.myHotel.showMenu();
+            }
+            if (userChoice == 2) {
+                //loginCustomer();
+                HotelApp.myHotel.customerMenu();
+            }
+            if (userChoice == 3) {
+               // register();
+            }
+        } while (userChoice <= 3);
+        if (userChoice > 3) {
+            System.out.println("Wrong input. Choose option 1, 2 or 3.");
+            loginMenu();
+        }
+    }
+
+    public void loginEmployer() {
+        String userName;
+        String password;
+        String empUsername = "1";
+        String empPassword = "2";
+
+        do {
+            System.out.println("Username: ");
+            userName = input.nextLine();
+            System.out.println("Password: ");
+            password = input.nextLine();
+            System.out.println("");
+            if (!userName.equals(empUsername) || !password.equals(empPassword)) {
+                System.out.println("Wrong username or password.\nPlease try again.\n");
+            }
+        } while (!userName.equals(empUsername) || !password.equals(empPassword));
+        System.out.println("Welcome!\n");
+    }
+
+    public void loginCustomer(String customerSsn) {
+        /*String userName;
+        String password;
+        int newAccount;
+        String cusUsername = customerSSN;
+        String cusPassword = cusPas;
+
+         */
+        /*
+        do {
+            System.out.println("Social security number: ");
+            userName = input.nextLine();
+            System.out.println("Password: ");
+            password = input.nextLine();
+            System.out.println("");
+
+            if (!userName.equals(cusUsername) && !password.equals(cusPassword)) {
+                System.out.println("Wrong username or password.");
+                System.out.println("If you want to try again, press: 1");
+                System.out.print("If you want to create a customer-account, press: 0\n");
+                newAccount = input.nextInt();
+                input.nextLine();
+                if (newAccount == 0) {
+                    register();
+                    loginMenu();
+                } else if (newAccount == 1) {
+                    loginCustomer();
+                    loginMenu();
+                } else {
+                    loginMenu();
+                }
+            }
+        } while (!userName.equals(cusUsername) || !password.equals(cusPassword));
+        System.out.println("Welcome!\n");
+    }
+
+                 */
+        boolean successfully = false;
+
+        for (Customer customer : customerList) {    // Loop controls that the customer with entered ssn number exists in list.
+            if (customerSsn.equals(customer.getCustomerSSN())) {
+                successfully = true;
+                break;
+            }
+        }
+        if (successfully) {
+            String username = null;
+            String password = null;
+            String cusUsername = null;
+            String cusPas = null;
+
+            System.out.print("Enter social security number: ");
+            username = input.nextLine();
+            System.out.print("Enter password: ");
+            password = input.nextLine();
+
+            if (username != null && username.equals(cusUsername) && password.equals(cusPas)) {
+                System.out.print("Welcome!");
+                loginMenu();
+            } else {
+                System.out.println("Wrong username or password. try again.");
+            }
+        }
+    }
+
+    public void register(String customerSsn) {
+        //addNewCustomer();
+        //loginMenu();
+
+        boolean successfully = false;
+
+        for (Customer customer : customerList) {    // Loop controls that the customer with entered ssn number exists in list.
+            if (customerSsn.equals(customer.getCustomerSSN())) {
+                successfully = true;
+                break;
+            }
+        }
+        if (successfully) {
+
+            int choice = customerRegSub();
+            switch (choice) {
+                case 1: // Register as an existing customer.
+
+                    break;
+                case 2: // Register as a new customer.
+                    addNewCustomer();
+                    break;
+                case 3:
+                    // Goes back to login-menu
+                    loginMenu();
+                    break;
+                default:
+                    System.out.println("Choice outside menu range.");
+                    break;
+            }
+        } else {
+            System.out.println("No customers with entered SSN number could be found.");
+        }
+    }
+
+
+    private int customerRegSub() {
+        int choice = 0;
+        System.out.println("What do you want to do? \n" +
+                "1. Register as an existing customer. \n" +
+                "2. Register as a new customer. \n" +
+                "3. Go back to login-menu. ");
+
+        try {
+            choice = input.nextInt();
+            input.nextLine();
+        } catch (Exception e) {
+            System.out.println("Input has to be a number between 1-3.");
+        }
+        return choice;
+    }
+
     public Room getRoom(int roomNbr) {  // Demo version
         Room roomToReturn = null;
         for (Room room : roomList) {
