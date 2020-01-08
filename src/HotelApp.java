@@ -1,3 +1,8 @@
+import java.awt.print.Book;
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
+import java.util.ArrayList;
+import java.util.Date;
 import java.util.Scanner;
 
 
@@ -9,6 +14,7 @@ public class HotelApp {
 
 
     public static void main(String[] args) {
+        myHotel.myLogic.Test();
         myHotel.myLogic.loadRooms();
         myHotel.myLogic.loadCustomers();
         myHotel.myLogic.loadBookings();
@@ -42,6 +48,7 @@ public class HotelApp {
             System.out.println("13.Remove customer");
             System.out.println("14.Remove room");
             System.out.println("15.Search for a booking");
+            System.out.println("16.View a customers booking history");
             System.out.println("0.Exit program");
             try {
                 userChoice = Integer.parseInt(input.nextLine());
@@ -98,6 +105,10 @@ public class HotelApp {
 
                 case 15:
                     myLogic.searchForBooking();
+                    break;
+
+                case 16:
+                    myLogic.viewBookingHistory();
                     break;
 
                 case 0:
