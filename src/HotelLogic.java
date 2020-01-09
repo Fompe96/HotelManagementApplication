@@ -499,7 +499,7 @@ public class HotelLogic {
             proceed = false;
         }
 
-        if (proceed) {
+        if (proceed && numberOfBeds > 0) {
             System.out.println("Does the room have Balcony? Enter Yes or No.");
 
             String answerBalcony;
@@ -519,6 +519,11 @@ public class HotelLogic {
             while (!"Yes".equals(answerBalcony) || !"No".equals(answerBalcony));
         }
 
+        else {
+            System.out.println("Invalid input");
+            proceed = false;
+        }
+
         if (proceed) {
             System.out.println("Enter the price for renting this room per night");
 
@@ -532,9 +537,9 @@ public class HotelLogic {
             }
         }
 
-        if (proceed) {
+        if (proceed && pricePerNight > 0 ) {
             roomList.add(new Room(findIncrementerValueRoom(), numberOfBeds, hasBalcony, pricePerNight));
-            System.out.println(roomList.size());
+            System.out.println("Room added!");
         }
     }
 
@@ -947,13 +952,13 @@ public class HotelLogic {
             if (proceed) {
                 proceed = false;
                 for (int i = 0; i < roomList.size(); i++) {
-                    if (roomList.get(i).getRoomNumber() == roomNumber) {
+                    if (roomList.get(i).getRoomNumber() == roomNumber && roomList.get(i).getBooked()) {
                         room = roomList.get(i);
                         proceed = true;
                     }
                 }
             } else {
-                System.out.println("Input has to be a number of an existing room");
+                System.out.println("Check if input is a existing room and if the room is booked");
             }
 
             if (proceed) {
@@ -977,8 +982,24 @@ public class HotelLogic {
         Room room = null;
 
         boolean proceed = false;
+        String payment = null;
+        do {
+            System.out.println("Has the Customer payed their fee for the booking, Enter Yes or No");
+            payment = input.nextLine();
+            if (payment.equals("Yes")) {
+                break;
+            } else if (payment.equals("No")) {
+                System.out.println("Ask the customer for payment before proceeding the CheckOut");
+            } else {
+                System.out.println("Invalid input, Enter Yes or No");
+            }
+        }
+        while (!"Yes".equals(payment));
+
 
         while (true) {
+
+
             System.out.println("Enter the room number that the customer is checking in: ");
             try {
                 roomNumber = input.nextInt();
@@ -992,7 +1013,8 @@ public class HotelLogic {
                     if (roomList.get(i).getRoomNumber() == roomNumber) {
                         room = roomList.get(i);
                         room.setCheckInOrOut(false);
-                        System.out.println("Your customer has now checked out from room number " + i + ".");
+                        room.setBooked(false);
+                        System.out.println("Your customer has now checked out from room number " + (i+1) + ".");
                     }
                 }
             } else {
@@ -1643,20 +1665,25 @@ public class HotelLogic {
     public void viewBookingHistory(){
         Calendar cal = Calendar.getInstance();
         Date currentDate = cal.getTime();
-
+        String userSSN;
         System.out.println("What is the customers SSN?");
-        //Try Catch will be added later
-        String userSSN = input.next();
-        System.out.println(userSSN);
-        for(Booking booking : bookingsList){
-            System.out.println(booking.toString());
-        }
-        for(Booking booking : bookingsList) {
-            if (userSSN.equals(booking.getSsn()) && booking.getCheckInDate().compareTo(currentDate) < 0 ){
-                booking.toString();
+
+
+        userSSN = input.next();
+        if (userSSN != null) {
+            System.out.println(userSSN);
+            for (Booking booking : bookingsList) {
+                System.out.println(booking.toString());
+            }
+            for (Booking booking : bookingsList) {
+                if (userSSN.equals(booking.getSsn()) && booking.getCheckInDate().compareTo(currentDate) < 0) {
+                    booking.toString();
+                }
+                else{
+                    System.out.println("Your SSN does not match any customer that have made a booking in the past, enter a valid SSN");
+                }
             }
         }
-
     }
 
     }
