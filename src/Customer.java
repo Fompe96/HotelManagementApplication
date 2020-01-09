@@ -43,6 +43,11 @@ public class Customer implements Serializable {
     public String getCustomerPhoneNumber() {
         return customerPhoneNumber;
     }
+
+    public void setCustomerPhoneNumber(String customerPhoneNumber) {
+        this.customerPhoneNumber = customerPhoneNumber;
+    }
+
     public void setCustomerPassword(String customerPassword){
         this.customerPassword = customerPassword;
     }
@@ -51,9 +56,7 @@ public class Customer implements Serializable {
         return customerPassword;
     }
 
-    public void setCustomerPhoneNumber(String customerPhoneNumber) {
-        this.customerPhoneNumber = customerPhoneNumber;
-    }
+
 
     @Override
     public String toString() {
