@@ -14,7 +14,31 @@ public class HotelLogic {
     // lists contains all objects of corresponding type.
     private ArrayList<Customer> customerList = new ArrayList<>();
     private ArrayList<Room> roomList = new ArrayList<>();
+    //Testing
     private ArrayList<Booking> bookingsList = new ArrayList<>();
+
+    public void Test() {
+        ArrayList<Room> roomsToBook = new ArrayList<>();
+        System.out.println("Bf creating booking");
+        //Testing
+        Date d1 = null;
+        Date d2 = null;
+        DateFormat df = new SimpleDateFormat("MM-dd-yyyy");
+        try {
+            d1 = df.parse("12-10-2011"); // for example, today's date
+            d2 = df.parse("01-01-1900"); // use your own dates, of course
+        } catch (Exception e) {
+
+        }
+        Booking bookingTest = new Booking(1, d1, d2, "12345678-1234", roomsToBook);
+        System.out.println("after creating booking");
+        bookingTest.toString();
+        bookingsList.add(bookingTest);
+        for(Booking booking : bookingsList){
+            System.out.println(booking.toString());
+        }
+
+    }
 
     private Scanner input = new Scanner(System.in);
 
@@ -202,7 +226,8 @@ public class HotelLogic {
 
         try {
             choice = input.nextInt();
-            input.nextLine();
+            input.nextLine();Calendar cal = Calendar.getInstance();
+            Date currentDate = cal.getTime();
         } catch (Exception e) {
             System.out.println("Input has to be a number between 1-3.");
         }
@@ -1614,6 +1639,26 @@ public class HotelLogic {
         }
         return incrementerValue;
     }
+
+    public void viewBookingHistory(){
+        Calendar cal = Calendar.getInstance();
+        Date currentDate = cal.getTime();
+
+        System.out.println("What is the customers SSN?");
+        //Try Catch will be added later
+        String userSSN = input.next();
+        System.out.println(userSSN);
+        for(Booking booking : bookingsList){
+            System.out.println(booking.toString());
+        }
+        for(Booking booking : bookingsList) {
+            if (userSSN.equals(booking.getSsn()) && booking.getCheckInDate().compareTo(currentDate) < 0 ){
+                booking.toString();
+            }
+        }
+
+    }
+
     }
 
 
