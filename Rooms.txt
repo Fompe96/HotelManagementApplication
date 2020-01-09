@@ -1,0 +1,7 @@
+Room number: 2
+Price per night: 400,00kr
+Number of beds: 4
+Has balcony
+
+
+----------END----------
