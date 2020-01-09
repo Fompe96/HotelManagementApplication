@@ -1,3 +1,5 @@
+import java.io.*;
+import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.time.YearMonth;
 import java.util.ArrayList;
@@ -6,7 +8,9 @@ import java.util.Date;
 import java.util.Scanner;
 
 public class HotelLogic {
-
+    private String bookingFile = "bookings.ser"; // File where bookings are stored.
+    private String customerFile = "customers.ser";   // File where customers are stored.
+    private String roomFile = "rooms.ser";   // File where rooms are stored.
     // lists contains all objects of corresponding type.
     private ArrayList<Customer> customerList = new ArrayList<>();
     private ArrayList<Room> roomList = new ArrayList<>();
@@ -323,7 +327,7 @@ public class HotelLogic {
         }
     }
 
-    private boolean makeBooking(String ssn) { // String ssn, Date checkInDate, Date checkOutDate, ArrayList<Room> bookedRooms
+    public boolean makeBooking(String ssn) { // String ssn, Date checkInDate, Date checkOutDate, ArrayList<Room> bookedRooms
         boolean successfully = true;
         System.out.println("What day would you like to check in? YYYY-MM-DD");
         Date checkInDate = promptForDate();
@@ -354,7 +358,7 @@ public class HotelLogic {
                     System.out.print(room);
                 }
                 System.out.println("--------------------------------- \n" +
-                        "How many rooms would you like to book? (Maximum  " + availableRooms.size() + " room(s)):");
+                        "How many rooms would you like to book?");
                 int numOfRoomsToBook = promptForInteger();
                 if (numOfRoomsToBook < 1) {
                     successfully = false;
@@ -404,15 +408,9 @@ public class HotelLogic {
                             getRoom(roomNumberArray[i]).setBooked(true);
                         }
 
-                        Booking booking = new Booking(checkInDate, checkOutDate, ssn, roomsToBook);
+                        Booking booking = new Booking(findIncrementerValueBooking(), checkInDate, checkOutDate, ssn, roomsToBook);
                         bookingsList.add(booking);
-                        for (Customer customer : customerList) {
-                            if (customer.getCustomerSsn().equals(ssn)) {
-                                customer.getBookings().add(booking);
-                                System.out.println(customer.getBookings().get(0));
-                                break;
-                            }
-                        }
+                        System.out.println(booking);
                     }
                 }
             }
@@ -510,7 +508,7 @@ public class HotelLogic {
         }
 
         if (proceed) {
-            roomList.add(new Room(numberOfBeds, hasBalcony, pricePerNight));
+            roomList.add(new Room(findIncrementerValueRoom(), numberOfBeds, hasBalcony, pricePerNight));
             System.out.println(roomList.size());
         }
     }
@@ -1012,7 +1010,7 @@ public class HotelLogic {
     }
 
     // method with logic for editing a booking.
-    private void editBooking(String customerSsn) {
+    public void editBooking(String customerSsn) {
         Calendar cal = Calendar.getInstance();
         Date currentDate = cal.getTime();
         Date newDate;
@@ -1380,6 +1378,242 @@ public class HotelLogic {
                 }
             }
         }
+
+    public void saveBookings() { // Method to save all existing bookings in bookingList to a text file.
+        if (bookingsList.size() > 0) {
+            try {
+                FileOutputStream FOS = new FileOutputStream(bookingFile);
+                ObjectOutputStream OOS = new ObjectOutputStream(FOS);
+                OOS.writeObject(bookingsList);
+                OOS.close();
+                FOS.close();
+                System.out.println("Bookings were successfully saved to bookings.ser");
+            } catch (Exception e) {
+                System.out.println(e);
+            }
+        }
+    }
+
+    public void emptyBookingFile() {   // Method to empty the file before saving information to it (to prevent duplicate information)
+        try {
+            FileOutputStream FOS = new FileOutputStream(bookingFile);
+            ObjectOutputStream OOS = new ObjectOutputStream(FOS);
+            OOS.close();
+            FOS.close();
+            System.out.println("Booking file was successfully emptied.");
+        } catch (Exception e) {
+            System.out.println(e);
+        }
+    }
+
+    public void loadBookings() {   // Method to load all bookings from text file to the bookingList.
+        try {
+            FileInputStream FIS = new FileInputStream(bookingFile);
+            ObjectInputStream OIS = new ObjectInputStream(FIS);
+            bookingsList = (ArrayList) OIS.readObject();
+            OIS.close();
+            FIS.close();
+            System.out.println("Bookings load done");
+        } catch (IOException e) {
+            System.out.println("No bookings exists in file yet.");
+        } catch (ClassNotFoundException e) {
+            System.out.println(e);
+        }
+    }
+
+    public void saveCustomers() { // Method to save all existing customers in customerList to a text file.
+        if (customerList.size() > 0) {
+            try {
+                FileOutputStream FOS = new FileOutputStream(customerFile);
+                ObjectOutputStream OOS = new ObjectOutputStream(FOS);
+                OOS.writeObject(customerList);
+                OOS.close();
+                FOS.close();
+                System.out.println("Customers were successfully saved to customers.ser");
+            } catch (Exception e) {
+                System.out.println(e);
+            }
+        }
+    }
+
+    public void emptyCustomerFile() {   // Method to empty the file before saving information to it (to prevent duplicate information)
+        try {
+            FileOutputStream FOS = new FileOutputStream(customerFile);
+            ObjectOutputStream OOS = new ObjectOutputStream(FOS);
+            OOS.close();
+            FOS.close();
+            System.out.println("Customer file was successfully emptied.");
+        } catch (Exception e) {
+            System.out.println(e);
+        }
+    }
+
+    public void loadCustomers() {   // Method to load all customers from text file to the customerList.
+        try {
+            FileInputStream FIS = new FileInputStream(customerFile);
+            ObjectInputStream OIS = new ObjectInputStream(FIS);
+            customerList = (ArrayList) OIS.readObject();
+            OIS.close();
+            FIS.close();
+            System.out.println("Customer load done");
+        } catch (IOException e) {
+            System.out.println("No customers exists in file yet.");
+        } catch (ClassNotFoundException e) {
+            System.out.println(e);
+        }
+    }
+
+    public void saveRooms() { // Method to save all existing rooms in roomList to a text file.
+        if (roomList.size() > 0) {
+            try {
+                FileOutputStream FOS = new FileOutputStream(roomFile);
+                ObjectOutputStream OOS = new ObjectOutputStream(FOS);
+                OOS.writeObject(roomList);
+                OOS.close();
+                FOS.close();
+                System.out.println("Rooms were successfully saved to bookings.ser");
+            } catch (Exception e) {
+                System.out.println(e);
+            }
+        }
+    }
+
+    public void emptyRoomsFile() {   // Method to empty the file before saving information to it (to prevent duplicate information)
+        try {
+            FileOutputStream FOS = new FileOutputStream(roomFile);
+            ObjectOutputStream OOS = new ObjectOutputStream(FOS);
+            OOS.close();
+            FOS.close();
+            System.out.println("Room file was successfully emptied.");
+        } catch (Exception e) {
+            System.out.println(e);
+        }
+    }
+
+    public void loadRooms() {   // Method to load all rooms from text file to the roomList.
+        try {
+            FileInputStream FIS = new FileInputStream(roomFile);
+            ObjectInputStream OIS = new ObjectInputStream(FIS);
+            roomList = (ArrayList) OIS.readObject();
+            OIS.close();
+            FIS.close();
+            System.out.println("Room load done");
+        } catch (IOException e) {
+            System.out.println("No rooms exists in file yet.");
+        } catch (ClassNotFoundException e) {
+            System.out.println(e);
+        }
+    }
+
+    public void writeBookings() {
+        String bookingFile = "Bookings.txt";
+        String date;
+        DateFormat dateFormat = new SimpleDateFormat("yyyy-mm-dd");
+        for (Booking booking : bookingsList) {
+            try {
+                // Creation of filewriter coated in bufferedwriter.
+                FileWriter fileWriter = new FileWriter(bookingFile);
+                BufferedWriter bufferedWriter = new BufferedWriter(fileWriter);
+
+                // writes the information of the booking to a file.
+                bufferedWriter.write("Booking id: " + booking.getBookingId());
+                bufferedWriter.newLine();
+                bufferedWriter.write("Check in date: " + (date = dateFormat.format(booking.getCheckInDate())));
+                bufferedWriter.newLine();
+                bufferedWriter.write("Check out date: " + (date = dateFormat.format(booking.getCheckOutDate())));
+                bufferedWriter.newLine();
+
+                bufferedWriter.write("Customer ssn: " + booking.getSsn());
+                bufferedWriter.newLine();
+                bufferedWriter.write("Booked rooms: ");
+                String roomNr;
+                for (int i = 0; i < booking.getBookedRooms().size(); i++) {
+                    roomNr = String.valueOf(booking.getBookedRooms().get(i).getRoomNumber());
+                    bufferedWriter.write(roomNr + ", ");
+                }
+                bufferedWriter.newLine();
+                bufferedWriter.write("----------END----------");
+                bufferedWriter.newLine();
+                bufferedWriter.close();
+            } catch (Exception e) {
+                System.out.println("Error in file writing for file: " + bookingFile);
+                return;
+
+            }
+        }
+        System.out.println("Bookings were successfully written to " + bookingFile);
+    }
+
+    public void writeCustomers() {
+        String customerFile = "Customers.txt";
+        String date;
+        DateFormat dateFormat = new SimpleDateFormat("yyyy-mm-dd");
+        for (Customer customer : customerList) {
+            try {
+                // Creation of filewriter coated in bufferedwriter.
+                FileWriter fileWriter = new FileWriter(customerFile);
+                BufferedWriter bufferedWriter = new BufferedWriter(fileWriter);
+
+                // writes the information of the Customers to a file.
+                bufferedWriter.write(customer.toString());
+                bufferedWriter.newLine();
+
+                bufferedWriter.write("----------END----------");
+                bufferedWriter.newLine();
+                bufferedWriter.close();
+            } catch (Exception e) {
+                System.out.println("Error in file writing for file: " + customerFile);
+                return;
+
+            }
+        }
+        System.out.println("Customers were successfully written to " + customerFile);
+    }
+
+    public void writeRooms() {
+        String roomFile = "Rooms.txt";
+        for (Room room : roomList) {
+            try {
+                // Creation of FileWriter coated in BufferedWriter.
+                FileWriter fileWriter = new FileWriter(roomFile);
+                BufferedWriter bufferedWriter = new BufferedWriter(fileWriter);
+
+                // writes the information of the Rooms to a file.
+                bufferedWriter.write(room.toString());
+                bufferedWriter.newLine();
+
+
+                bufferedWriter.write("----------END----------");
+                bufferedWriter.newLine();
+                bufferedWriter.close();
+            } catch (Exception e) {
+                System.out.println("Error in file writing for file: " + roomFile);
+                return;
+
+            }
+        }
+        System.out.println("Rooms were successfully written to " + roomFile);
+    }
+
+    public int findIncrementerValueBooking() {  // Method to assign bookingID to the bookings as they are created.
+        int incrementerValue = 1;
+        for (Booking booking : bookingsList) {
+            if (incrementerValue <= booking.getBookingId()) {
+                incrementerValue = booking.getBookingId()+1;
+            }
+        }
+        return incrementerValue;
+    }
+
+    public int findIncrementerValueRoom() {  // Method to assign roomNumber to the rooms as they are created.
+        int incrementerValue = 1;
+        for (Room room : roomList) {
+            if (incrementerValue <= room.getRoomNumber()) {
+                incrementerValue = room.getRoomNumber()+1;
+            }
+        }
+        return incrementerValue;
+    }
     }
 
 

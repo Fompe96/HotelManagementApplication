@@ -6,7 +6,6 @@ public class Customer {
     private String customerAddress;
     private String customerPhoneNumber;
     private String customerPassword;
-    private ArrayList<Booking> bookingList = new ArrayList<>();
 
     public Customer(String customerName, String customerSSN, String customerAdress, String customerPhoneNumber) {
         this.customerName = customerName;
@@ -17,10 +16,6 @@ public class Customer {
 
     public String getCustomerName() {
         return customerName;
-    }
-
-    public ArrayList<Booking> getBookings() {
-        return bookingList;
     }
 
     public void setCustomerName(String customerName) {
