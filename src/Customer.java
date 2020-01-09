@@ -1,6 +1,8 @@
+import java.io.Serializable;
 import java.util.ArrayList;
 
-public class Customer {
+public class Customer implements Serializable {
+    private static final long serialversionUID = 3L;
     private String customerName;
     private String customerSSN;
     private String customerAddress;

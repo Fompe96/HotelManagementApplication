@@ -1,0 +1,6 @@
+Booking id: 1
+Check in date: 2011-00-10
+Check out date: 1900-00-01
+Customer ssn: 12345678-1234
+Booked rooms: 
+----------END----------
