@@ -16,8 +16,9 @@ public class HotelLogic {
     private ArrayList<Room> roomList = new ArrayList<>();
     //Testing
     private ArrayList<Booking> bookingsList = new ArrayList<>();
+    private Scanner input = new Scanner(System.in);
 
-    public void Test() {
+    public void test() {
         ArrayList<Room> roomsToBook = new ArrayList<>();
         System.out.println("Bf creating booking");
         //Testing
@@ -40,7 +41,7 @@ public class HotelLogic {
 
     }
 
-    private Scanner input = new Scanner(System.in);
+
 
     public void loginMenu() {
         int userChoice;
@@ -54,10 +55,10 @@ public class HotelLogic {
             System.out.println("|____________________|");
             System.out.println(" (Employer-Username: 1)\n (Employer-Password: 2)   //David :)");
             System.out.print(" >>");
-            userChoice = Integer.parseInt(input.nextLine());
+            userChoice = promptForInt();
 
             if (userChoice == 1) {
-                loginEmployer();
+                loginEmployee();
             }
             if (userChoice == 2) {
                 loginCustomer();
@@ -72,7 +73,7 @@ public class HotelLogic {
         }
     }
 
-    public void loginEmployer() {
+    public void loginEmployee() {
         String userName;
         String password;
         String empUsername = "1";

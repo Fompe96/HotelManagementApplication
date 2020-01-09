@@ -1,8 +1,3 @@
-import java.awt.print.Book;
-import java.text.DateFormat;
-import java.text.SimpleDateFormat;
-import java.util.ArrayList;
-import java.util.Date;
 import java.util.Scanner;
 
 
@@ -14,18 +9,14 @@ public class HotelApp {
 
 
     public static void main(String[] args) {
-        myHotel.myLogic.Test();
+        myHotel.myLogic.test();
         myHotel.myLogic.loadRooms();
         myHotel.myLogic.loadCustomers();
         myHotel.myLogic.loadBookings();
-        myHotel.loginFeature();
+        myHotel.myLogic.loginMenu();
 
     }
 
-    public void loginFeature() {
-        myLogic.loginMenu();
-        showMenu();
-    }
 
     public void showMenu() {
         Scanner input = new Scanner(System.in);
