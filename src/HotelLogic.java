@@ -1027,15 +1027,42 @@ public class HotelLogic {
     }
 
     public void removeRoom() {
-        System.out.println("Enter the room number of the room you want to remove");
-        int choice = input.nextInt();
+        boolean checker = false;
 
-        for (int i = 0; i < roomList.size(); i++) {
-            if (choice == roomList.get(i).getRoomNumber()) {
-                roomList.remove(i);
-                System.out.println("Room number " + choice + " is now removed");
+        do {
+            System.out.println("Enter the room number of the room you want to remove");
+            int choice = promptForInt();
+
+
+            if (choice != 0) {
+                for (int i = 0; i < roomList.size(); i++) {
+                    if (choice == roomList.get(i).getRoomNumber()) {
+                        roomList.remove(i);
+                        System.out.println("Room number " + choice + " is now removed");
+                        checker = true;
+                    }
+                }
+                if (!checker) {
+                    System.out.println("No room with that room number exists.");
+                }
             }
-        }
+            if (!checker){
+                do {
+
+                    System.out.println("-----Try again?-----");
+                    System.out.println("[1] Yes.");
+                    System.out.println("[2] No.");
+                    choice = promptForInt();
+                    if (choice == 2) {
+                        checker = true;
+                    } else if (choice == 1) {
+
+                    } else {
+                        choice = 3;
+                    }
+                }while (choice == 3);
+            }
+        } while (!checker);
 
     }
 
