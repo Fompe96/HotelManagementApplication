@@ -1340,7 +1340,7 @@ public class HotelLogic {
     private int promptForInt() {
         int number = 0;
         try {
-            number = Integer.parseInt(input.next());
+            number = Integer.parseInt(input.nextLine());
         } catch (Exception e) {
             System.out.println("You must enter an integer.");
             return 0;
@@ -1672,10 +1672,6 @@ public class HotelLogic {
 
         userSSN = input.next();
         if (userSSN != null) {
-            System.out.println(userSSN);
-            for (Booking booking : bookingsList) {
-                System.out.println(booking.toString());
-            }
             for (Booking booking : bookingsList) {
                 if (userSSN.equals(booking.getSsn()) && booking.getCheckInDate().compareTo(currentDate) < 0) {
                     booking.toString();

@@ -1,4 +1,4 @@
-Name: dhajk
-Address: dajkflf
-Telephone number: 1234567890
+Name: anders jansson
+Address: fröknegårdsvägen 20
+Telephone number: 070-2068755
 ----------END----------
