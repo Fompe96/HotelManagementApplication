@@ -40,6 +40,7 @@ public class HotelApp {
             System.out.println("14.Remove room");
             System.out.println("15.Search for a booking");
             System.out.println("16.View a customers booking history");
+            System.out.println("17. Logout");
             System.out.println("0.Exit program");
             try {
                 userChoice = Integer.parseInt(input.nextLine());
@@ -102,6 +103,9 @@ public class HotelApp {
                     myLogic.viewBookingHistory();
                     break;
 
+                case 17:
+                    myLogic.loginMenu();
+                    break;
                 case 0:
                     System.out.println("Have a nice day!");
                     myLogic.saveRooms();
@@ -139,6 +143,8 @@ public class HotelApp {
             System.out.println("1.Make booking");
             System.out.println("2.View available rooms in period");
             System.out.println("3. Edit booking");
+            System.out.println("4. Change information");
+            System.out.println("5. Logout");
             System.out.println("0.Exit program");
 
             try {
@@ -155,6 +161,10 @@ public class HotelApp {
                     break;
                 case 3:
                     myLogic.editBooking(ssn);
+                    break;
+
+                case 4:
+                    myLogic.changeInformation(ssn);
                     break;
                 case 0:
                     System.out.println("Thank you, have a nice day!");

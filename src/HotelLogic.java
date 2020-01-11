@@ -159,17 +159,12 @@ public class HotelLogic {
                         // sets a password to the correct customer
                         for (Customer customer : customerList) {
                             if (customer.getCustomerSsn().equals(ssn)) {
+                                if (customer.getCustomerPassword() == null){
+                                    changePassword(ssn);
+                                }else {
+                                    System.out.println("Password already exists on entered ssn, please log in to change password.");
+                                }
 
-                                do {
-                                    System.out.print("Enter desired password: ");
-                                    password = input.nextLine();
-                                    customer.setCustomerPassword(password);
-                                    if (password.length() < 4) {
-                                        password = null;
-                                        System.out.println("the password need to be longer than 4 characters.");
-                                    }
-                                } while (password == null);
-                                System.out.println("Password successfully set.");
                             }
                         }
                     }else {
@@ -187,21 +182,7 @@ public class HotelLogic {
                     }
                     if (successfully) {
                         // sets a password to the correct customer
-                        for (Customer customer : customerList) {
-                            if (customer.getCustomerSsn().equals(ssn)) {
-
-                                do {
-                                    System.out.print("Enter desired password: ");
-                                    password = input.nextLine();
-                                    customer.setCustomerPassword(password);
-                                    if (password.length() < 4) {
-                                        password = null;
-                                        System.out.println("the password need to be longer than 4 characters.");
-                                    }
-                                } while (password == null);
-                                System.out.println("Password successfully set.");
-                            }
-                        }
+                        changePassword(ssn);
                     }
 
 
@@ -214,6 +195,81 @@ public class HotelLogic {
                     System.out.println("Choice outside menu range.");
                     break;
             }
+        }
+        private void changePassword (String ssn){
+            String password;
+            for (Customer customer : customerList) {
+                if (customer.getCustomerSsn().equals(ssn)) {
+
+                    do {
+                        System.out.print("Enter desired password: ");
+                        password = input.nextLine();
+                        customer.setCustomerPassword(password);
+                        if (password.length() < 4) {
+                            password = null;
+                            System.out.println("the password need to be longer than 4 characters.");
+                        }
+                    } while (password == null);
+                    System.out.println("Password successfully set.");
+                }
+            }
+
+        }
+        public void changeInformation (String ssn) {
+            int choice;
+            do {
+
+
+                System.out.println("-----What information do yo want to change?-----");
+                System.out.println("[1] Password.");
+                System.out.println("[2] Address.");
+                System.out.println("[3] Phone number.");
+                System.out.println("[4] Exit.");
+                 choice = promptForInt();
+
+                switch (choice) {
+                    case 1:
+                        changePassword(ssn);
+                        break;
+                    case 2:
+                        System.out.print(" New Address: ");
+                        String customerAdress = input.nextLine();
+                        while (!customerAdress.matches("[a-öA-Ö0-9 ,]+") || customerAdress.length() < 7) {
+                            System.out.print("Invalid input.\nAddress: ");
+                            customerAdress = input.nextLine();
+                        }
+                        for (Customer customer : customerList) {
+                            if (customer.getCustomerSsn().equals(ssn)) {
+                                customer.setCustomerAddress(customerAdress);
+                                System.out.println("New address successfully set.");
+                            }
+                        }
+
+                        break;
+                    case 3:
+                        System.out.print(" New phone number: ");
+                        String customerPhoneNumber = input.nextLine();
+                        while (!customerPhoneNumber.matches("[0-9- ,]+") || customerPhoneNumber.length() < 10) {
+                            System.out.print("Phone number has to be 10 numbers.\nPhone number: ");
+                            customerPhoneNumber = input.nextLine();
+                        }
+                        for (Customer customer : customerList) {
+                            if (customer.getCustomerSsn().equals(ssn)) {
+                                customer.setCustomerPhoneNumber(customerPhoneNumber);
+                                System.out.println("New phone number successfully set.");
+                            }
+                        }
+                        break;
+                    case 4:
+                        return;
+                    case 0:
+                        break;
+                    default:
+                        System.out.println("invalid input, try again.");
+
+
+                }
+            }while (choice != 4);
         }
 
 
