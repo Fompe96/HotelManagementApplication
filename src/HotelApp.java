@@ -166,6 +166,9 @@ public class HotelApp {
                 case 4:
                     myLogic.changeInformation(ssn);
                     break;
+                case 5:
+                    myLogic.loginMenu();
+                    break;
                 case 0:
                     System.out.println("Thank you, have a nice day!");
                     myLogic.saveRooms();

@@ -109,6 +109,7 @@ public class HotelLogic {
 
 
         boolean successfully = false;
+        boolean checker = false;
 
         for (Customer customer : customerList) {    // Loop controls that the customer with entered ssn number exists in list.
             if (userName.equals(customer.getCustomerSsn())) {
@@ -120,11 +121,13 @@ public class HotelLogic {
             // check if ssn and password match the same object.
             for (Customer customer : customerList){
                 if (userName != null && userName.equals(customer.getCustomerSsn()) && password.equals(customer.getCustomerPassword())) {
-                    System.out.print("Welcome!");
+                    System.out.println("Welcome!");
                     HotelApp.myHotel.customerMenu(userName);
-                } else {
-                    System.out.println("Wrong password. try again.");
+                    checker = true;
                 }
+            }
+            if (!checker){
+                System.out.println("Wrong password!");
             }
 
         }else{
@@ -620,7 +623,13 @@ public class HotelLogic {
             System.out.print("\nInvalid format of social security number.\nSSN (YYYYMMDD-XXXX): ");
             customerSSN = input.nextLine();
         }
-        System.out.print("Adress: ");
+        for (Customer customer : customerList){
+            if (customerSSN.equals(customer.getCustomerSsn())){
+                System.out.println("A customer with that ssn already exists, try again.");
+                loginMenu();
+            }
+        }
+        System.out.print("Address: ");
         customerAdress = input.nextLine();
         while (!customerAdress.matches("[a-öA-Ö0-9 ,]+") || customerAdress.length() < 7) {
             System.out.print("Invalid input.\nAdress: ");
