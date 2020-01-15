@@ -591,8 +591,8 @@ public class HotelLogic {
             System.out.print("\nInvalid input, enter first and last name.\nFirst and last name: ");
             customerName = input.nextLine();
         }
-        customerSSN = input.nextLine();
         System.out.print("Social security number (YYYYMMDD-XXXX): ");
+        customerSSN = input.nextLine();
         while (customerSSN.length() < 13 || customerSSN.length() > 13) {
             System.out.print("\nInvalid format of social security number.\nSSN (YYYYMMDD-XXXX): ");
             customerSSN = input.nextLine();
@@ -600,7 +600,7 @@ public class HotelLogic {
         for (Customer customer : customerList){
             if (customerSSN.equals(customer.getCustomerSsn())){
                 System.out.println("A customer with that ssn already exists, try again.");
-                loginMenu();
+                addNewCustomer();
             }
         }
         System.out.print("Address: ");
