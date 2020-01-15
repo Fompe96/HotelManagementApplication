@@ -1,6 +1,6 @@
-Booking id: 2
-Check in date: 2020-00-14
-Check out date: 2020-00-15
+Booking id: 1
+Check in date: 2020-00-16
+Check out date: 2020-00-18
 Customer ssn: 12345678-1234
 Booked rooms: 1, 
 ----------END----------

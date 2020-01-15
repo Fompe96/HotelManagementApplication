@@ -113,8 +113,8 @@ public class HotelApp {
                     myLogic.writeBookings();
                     myLogic.writeCustomers();
                     myLogic.writeRooms();
-                   // myLogic.emptyRoomsFile(); // remove comment in order to empty the room file when exiting.
-                   // myLogic.emptyCustomerFile();  //remove comment in order to empty the customer file when exiting.
+                  //  myLogic.emptyRoomsFile(); // remove comment in order to empty the room file when exiting.
+                  // myLogic.emptyCustomerFile();  //remove comment in order to empty the customer file when exiting.
                    // myLogic.emptyBookingFile();   //remove comment in order to empty the booking file when exiting.
                     System.exit(0);
                     break;

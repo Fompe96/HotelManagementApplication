@@ -23,11 +23,11 @@ public class HotelLogic {
 
             System.out.println(" ____________________ ");
             System.out.println("|      [LOG IN]      |");
-            System.out.println("| 1. Employer        |");
+            System.out.println("| 1. Employee        |");
             System.out.println("| 2. Customer        |");
             System.out.println("| 3. Register        |");
             System.out.println("|____________________|");
-            System.out.println(" (Employer-Username: 1)\n (Employer-Password: 2)   //David :)");
+            System.out.println(" (Employee-Username: 1)\n (Employee-Password: 2)   //David :)");
             System.out.print(" >>");
             userChoice = promptForInt();
 
