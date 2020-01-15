@@ -14,34 +14,8 @@ public class HotelLogic {
     // lists contains all objects of corresponding type.
     private ArrayList<Customer> customerList = new ArrayList<>();
     private ArrayList<Room> roomList = new ArrayList<>();
-    //Testing
     private ArrayList<Booking> bookingsList = new ArrayList<>();
     private Scanner input = new Scanner(System.in);
-
-    public void test() {
-        ArrayList<Room> roomsToBook = new ArrayList<>();
-        System.out.println("Bf creating booking");
-        //Testing
-        Date d1 = null;
-        Date d2 = null;
-        DateFormat df = new SimpleDateFormat("MM-dd-yyyy");
-        try {
-            d1 = df.parse("12-10-2011"); // for example, today's date
-            d2 = df.parse("01-01-1900"); // use your own dates, of course
-        } catch (Exception e) {
-
-        }
-        Booking bookingTest = new Booking(1, d1, d2, "12345678-1234", roomsToBook);
-        System.out.println("after creating booking");
-        bookingTest.toString();
-        bookingsList.add(bookingTest);
-        for(Booking booking : bookingsList){
-            System.out.println(booking.toString());
-        }
-
-    }
-
-
 
     public void loginMenu() {
         int userChoice;
@@ -989,69 +963,78 @@ public class HotelLogic {
         Room room = null;
         String customerSSN = null;
         Calendar cal = Calendar.getInstance();
+        cal.set(Calendar.HOUR_OF_DAY, 0);
+        cal.set(Calendar.MINUTE, 0);
+        cal.set(Calendar.SECOND, 0);
+        cal.set(Calendar.MILLISECOND, 0);
         Date currentDate = cal.getTime();
         boolean proceed = false;
 
 
         while (true) {
 
-
-            customerSSN = input.nextLine();
             System.out.print("Social security number (YYYYMMDD-XXXX): ");
+            customerSSN = input.next();
             while (customerSSN.length() < 13 || customerSSN.length() > 13) {
                 System.out.print("\nInvalid format of social security number.\nSSN (YYYYMMDD-XXXX): ");
                 customerSSN = input.nextLine();
             }
 
-            for (Booking booking:bookingsList) {
-                if (customerSSN.equals(booking.getSsn())){
-                    booking.toString();
-                }
-                else{
+
+            for (Booking booking : bookingsList) {
+                if (customerSSN.equals(booking.getSsn())) {
+                    System.out.println(booking.toString() + "\n");
+                } else {
                     System.out.println("The ssn does not match a existing ssn of a customer");
                 }
             }
 
 
-                do {
-                    System.out.println("Enter the bookingId of the booking");
-                    try {
-                        bookingId = input.nextInt();
-                        input.nextLine();
-                        proceed = true;
-                    } catch (Exception e) {
-                        System.out.println("Input has to be a number");
-                    }
-                } while (!proceed);
-
-                if(proceed){
-                    proceed = false;
-                    for(Booking booking : bookingsList){
-                        if (booking.getCheckInDate().compareTo(currentDate) >= 0 && booking.getCheckOutDate().compareTo(currentDate) <= 0){
-                            proceed = true;
-                        }
-
-                        else{
-                            System.out.println("You can only check in during the dates that the booking is active");
-                        }
-                    }
-
+            do {
+                System.out.println("Enter the bookingId of the booking");
+                try {
+                    bookingId = input.nextInt();
+                    proceed = true;
+                } catch (Exception e) {
+                    System.out.println("Input has to be a number");
+                    bookingId = input.nextInt();
+                    input.nextLine();
                 }
-
+            } while (!proceed);
 
             if (proceed) {
                 proceed = false;
-                for (int j = 0; j < bookingsList.size(); j++) {
-                    if (bookingsList.get(j).getBookingId() == bookingId) {
-                        room.setCheckInOrOut(true);
-                        System.out.println("Your customer has now checked in to room number " + roomNumber + ".");
+                for (Booking booking : bookingsList) {
+                    if (booking.getBookingId() == bookingId) {
+
+                        if (booking.getCheckInDate().compareTo(currentDate) >= 0 && booking.getCheckOutDate().compareTo(currentDate) >= 0) {
+                            proceed = true;
+
+                        } else {
+                            System.out.println("You can only check in during the dates of the booking");
+                        }
                     }
+
+                }
+
+
+                if (proceed) {
+                    proceed = false;
+                    for (int j = 0; j < bookingsList.size(); j++) {
+                        if (bookingsList.get(j).getBookingId() == bookingId) {
+                            Booking temp = bookingsList.get(j);
+                            for (int k = 0; k < temp.getBookedRooms().size(); k++) {
+                                temp.getBookedRooms().get(k).setCheckInOrOut(true);
+                            }
+                            System.out.println("Your customer has now checked in");
+                        }
+                    }
+                    break;
+                } else {
+                    System.out.println("Input has to a number of an existing booking");
                 }
                 break;
-            } else {
-                System.out.println("Input has to a number of an existing booking");
             }
-            break;
         }
     }
 
@@ -1060,20 +1043,6 @@ public class HotelLogic {
         Room room = null;
 
         boolean proceed = false;
-        String payment = null;
-        do {
-            System.out.println("Has the Customer payed their fee for the booking, Enter Yes or No");
-            payment = input.nextLine();
-            if (payment.equals("Yes")) {
-                break;
-            } else if (payment.equals("No")) {
-                System.out.println("Ask the customer for payment before proceeding the CheckOut");
-            } else {
-                System.out.println("Invalid input, Enter Yes or No");
-            }
-        }
-        while (!"Yes".equals(payment));
-
 
         while (true) {
 
@@ -1081,6 +1050,7 @@ public class HotelLogic {
             System.out.println("Enter the room number that the customer is checking in: ");
             try {
                 roomNumber = input.nextInt();
+                input.nextLine();
                 proceed = true;
             } catch (Exception e) {
                 System.out.println("Input has to be a number");
@@ -1091,12 +1061,12 @@ public class HotelLogic {
                     if (roomList.get(i).getRoomNumber() == roomNumber) {
                         room = roomList.get(i);
                         room.setCheckInOrOut(false);
-                        room.setBooked(false);
                         System.out.println("Your customer has now checked out from room number " + (i+1) + ".");
                     }
+                    else {
+                        System.out.println("Input has to be a number of an existing room");
+                    }
                 }
-            } else {
-                System.out.println("Input has to be a number of an existing room");
             }
             break;
 

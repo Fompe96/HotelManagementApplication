@@ -9,7 +9,6 @@ public class HotelApp {
 
 
     public static void main(String[] args) {
-        myHotel.myLogic.test();
         myHotel.myLogic.loadRooms();
         myHotel.myLogic.loadCustomers();
         myHotel.myLogic.loadBookings();
