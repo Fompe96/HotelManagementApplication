@@ -1469,7 +1469,7 @@ public class HotelLogic {
 
         ArrayList<Integer> bookedRooms = new ArrayList<>();
 
-        for (Booking booking : bookingsList) {
+        for (Booking booking : removeBooking) {
             for (Room room : booking.getBookedRooms()) {
                 bookedRooms.add(room.getRoomNumber());
             }
